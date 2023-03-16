@@ -1,0 +1,7 @@
+<library path="lib/libgeneric_transform">
+  <class name="generic_transform/GenericTransform" type="generic_transform::GenericTransform" base_class_type="nodelet::Nodelet">
+    <description>
+      generic_transform nodelet
+    </description>
+  </class>
+</library>
