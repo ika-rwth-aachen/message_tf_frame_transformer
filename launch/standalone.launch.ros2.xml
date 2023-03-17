@@ -1,0 +1,9 @@
+<launch>
+
+  <arg name="params_file" default="$(find-pkg-share generic_transform)/config/params.ros2.yaml" />
+
+  <node pkg="generic_transform" exec="generic_transform" name="generic_transform" output="screen">
+    <param from="$(var params_file)" />
+  </node>
+
+</launch>
