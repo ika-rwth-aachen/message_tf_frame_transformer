@@ -1,0 +1,2 @@
+MESSAGE_TYPE(sensor_msgs::Image)
+MESSAGE_TYPE(sensor_msgs::PointCloud2)

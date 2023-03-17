@@ -26,11 +26,10 @@ SOFTWARE.
 
 
 #include <generic_transform/GenericTransform.h>
+#include <generic_transform/message_types.h>
 #include <pluginlib/class_list_macros.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <ros/message_traits.h>
-#include <sensor_msgs/Image.h>
-#include <sensor_msgs/PointCloud2.h>
 #include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 
 
@@ -83,34 +82,30 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
   const std::string& msg_type_md5 = generic_msg->getMD5Sum();
 
   // detect message type based on md5 hash
-  if (msg_type_md5 == ros::message_traits::MD5Sum<sensor_msgs::Image>::value()) {
-
-    // instantiate generic message as message of concrete type
-    msg_type = "sensor_msgs::PointCloud2";
-    sensor_msgs::Image::ConstPtr msg = generic_msg->instantiate<sensor_msgs::Image>();
-
-    // setup publisher and pass message to transform callback
-    publisher_ = private_node_handle_.advertise<sensor_msgs::Image>(kOutputTopic, 10);
-    this->transform<sensor_msgs::Image>(msg);
-
-    // re-initialize concrete subscriber
-    subscriber_.shutdown();
-    subscriber_ = private_node_handle_.subscribe(kInputTopic, 10, &GenericTransform::transform<sensor_msgs::PointCloud2>, this);
-
-  } else if (msg_type_md5 == ros::message_traits::MD5Sum<sensor_msgs::PointCloud2>::value()) {
-    
-    // instantiate generic message as message of concrete type
-    msg_type = "sensor_msgs::Image";
-    sensor_msgs::PointCloud2::ConstPtr msg = generic_msg->instantiate<sensor_msgs::PointCloud2>();
-
-    // setup publisher and pass message to transform callback
-    publisher_ = private_node_handle_.advertise<sensor_msgs::PointCloud2>(kOutputTopic, 10);
-    this->transform<sensor_msgs::PointCloud2>(msg);
-
-    // re-initialize concrete subscriber
-    subscriber_.shutdown();
-    subscriber_ = private_node_handle_.subscribe(kInputTopic, 10, &GenericTransform::transform<sensor_msgs::PointCloud2>, this);
+  if (false) {}
+#define MESSAGE_TYPE(TYPE)                                                      \
+  else if (msg_type_md5 == ros::message_traits::MD5Sum<TYPE>::value()) {        \
+                                                                                \
+    /* instantiate generic message as message of concrete type */               \
+    msg_type = #TYPE;                                                           \
+    TYPE::ConstPtr msg = generic_msg->instantiate<TYPE>();                      \
+                                                                                \
+    /* setup publisher and pass message to transform callback */                \
+    publisher_ = private_node_handle_.advertise<TYPE>(kOutputTopic, 10);        \
+    this->transform<TYPE>(msg);                                                 \
+                                                                                \
+    /* re-initialize concrete subscriber */                                     \
+    subscriber_.shutdown();                                                     \
+    subscriber_ = private_node_handle_.subscribe(                               \
+      kInputTopic,                                                              \
+      10,                                                                       \
+      &GenericTransform::transform<sensor_msgs::PointCloud2>,                   \
+    this                                                                        \
+    );                                                                          \
+                                                                                \
   }
+#include "generic_transform/message_types.macro"
+#undef MESSAGE_TYPE
 
   NODELET_DEBUG("Detected message type '%s'", msg_type.c_str());
 }
