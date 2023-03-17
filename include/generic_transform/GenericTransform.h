@@ -79,17 +79,13 @@ class GenericTransform : public nodelet::Nodelet {
 template <typename T>
 void GenericTransform::transform(const typename T::ConstPtr& msg) {
 
-  // lookup transform
-  geometry_msgs::TransformStamped tf;
+  // transform
+  T tf_msg;
   try {
-    tf = tf_buffer_.lookupTransform(frame_id_, msg->header.frame_id, ros::Time(0));
+    tf_buffer_.transform(*msg, tf_msg, frame_id_);
   } catch (tf2::LookupException &e) {
     NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
   }
-
-  // transform
-  T tf_msg;
-  tf2::doTransform(*msg, tf_msg, tf);
 
   // publish
   NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", msg->header.frame_id.c_str(), frame_id_.c_str());
