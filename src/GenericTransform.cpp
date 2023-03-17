@@ -27,6 +27,8 @@ SOFTWARE.
 
 #include <generic_transform/GenericTransform.h>
 #include <pluginlib/class_list_macros.h>
+#include <geometry_msgs/TransformStamped.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 
 
 PLUGINLIB_EXPORT_CLASS(generic_transform::GenericTransform, nodelet::Nodelet)
@@ -35,9 +37,11 @@ PLUGINLIB_EXPORT_CLASS(generic_transform::GenericTransform, nodelet::Nodelet)
 namespace generic_transform {
 
 
-const std::string GenericTransform::kInputTopic = "~/input";
+const std::string GenericTransform::kInputTopic = "input";
 
-const std::string GenericTransform::kOutputTopic = "~/transformed";
+const std::string GenericTransform::kOutputTopic = "transformed";
+
+const std::string GenericTransform::kFrameIdParam = "frame_id";
 
 
 void GenericTransform::onInit() {
@@ -51,16 +55,42 @@ void GenericTransform::onInit() {
 
 void GenericTransform::loadParameters() {
 
+  bool found = private_node_handle_.getParam(kFrameIdParam, frame_id_);
+  if (!found) NODELET_ERROR("Parameter '%s' is missing", kFrameIdParam.c_str());
+
+  NODELET_INFO("Transforming data on topic '%s' to frame '%s' published on topic '%s'",
+               ros::names::resolve("~" + kInputTopic).c_str(), frame_id_.c_str(),
+               ros::names::resolve("~" + kOutputTopic).c_str());
 }
 
 
 void GenericTransform::setup() {
 
+  // listen to tf
+  tf_listener_ = std::make_shared<tf2_ros::TransformListener>(tf_buffer_);
+
+  // setup publisher and subscriber
+  publisher_ = private_node_handle_.advertise<sensor_msgs::PointCloud2>(kOutputTopic, 10);
+  subscriber_ = private_node_handle_.subscribe(kInputTopic, 10, &GenericTransform::transform, this);
 }
 
 
-void GenericTransform::transform(const topic_tools::ShapeShifter::ConstPtr& generic_msg) {
+void GenericTransform::transform(const sensor_msgs::PointCloud2::ConstPtr& msg) {
 
+  // lookup tf
+  geometry_msgs::TransformStamped tf;
+  try {
+    tf = tf_buffer_.lookupTransform(frame_id_, msg->header.frame_id, ros::Time(0));
+  } catch (tf2::LookupException &e) {
+    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
+  }
+
+  // transform
+  sensor_msgs::PointCloud2 tf_msg;
+  tf2::doTransform(*msg, tf_msg, tf);
+
+  // publish
+  publisher_.publish(tf_msg);
 }
 
 

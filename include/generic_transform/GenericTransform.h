@@ -27,11 +27,15 @@ SOFTWARE.
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include <nodelet/nodelet.h>
 #include <ros/ros.h>
+#include <sensor_msgs/PointCloud2.h>
 #include <topic_tools/shape_shifter.h>
+#include <tf2_ros/buffer.h>
+#include <tf2_ros/transform_listener.h>
 
 
 namespace generic_transform {
@@ -46,7 +50,7 @@ class GenericTransform : public nodelet::Nodelet {
 
   void setup();
 
-  void transform(const topic_tools::ShapeShifter::ConstPtr& generic_msg);
+  void transform(const sensor_msgs::PointCloud2::ConstPtr& msg);
 
  protected:
 
@@ -54,7 +58,19 @@ class GenericTransform : public nodelet::Nodelet {
 
   static const std::string kOutputTopic;
 
+  static const std::string kFrameIdParam;
+
+  std::string frame_id_;
+
   ros::NodeHandle private_node_handle_;
+
+  tf2_ros::Buffer tf_buffer_;
+
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+
+  ros::Subscriber subscriber_;
+
+  ros::Publisher publisher_;
 };
 
 }  // namespace generic_transform

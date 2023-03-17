@@ -20,9 +20,12 @@ elseif(${ROS_VERSION} EQUAL 1)
   ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
   ## is used, also find other catkin packages
   find_package(catkin REQUIRED COMPONENTS
+    geometry_msgs
     nodelet
     roscpp
     tf2
+    tf2_ros
+    tf2_sensor_msgs
     topic_tools
   )
 
