@@ -32,7 +32,6 @@ SOFTWARE.
 
 #include <nodelet/nodelet.h>
 #include <ros/ros.h>
-#include <sensor_msgs/PointCloud2.h>
 #include <topic_tools/shape_shifter.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
@@ -50,7 +49,10 @@ class GenericTransform : public nodelet::Nodelet {
 
   void setup();
 
-  void transform(const sensor_msgs::PointCloud2::ConstPtr& msg);
+  void detectMessageType(const topic_tools::ShapeShifter::ConstPtr& generic_msg);
+
+  template <typename T>
+  void transform(const typename T::ConstPtr& msg);
 
  protected:
 
@@ -72,5 +74,27 @@ class GenericTransform : public nodelet::Nodelet {
 
   ros::Publisher publisher_;
 };
+
+
+template <typename T>
+void GenericTransform::transform(const typename T::ConstPtr& msg) {
+
+  // lookup transform
+  geometry_msgs::TransformStamped tf;
+  try {
+    tf = tf_buffer_.lookupTransform(frame_id_, msg->header.frame_id, ros::Time(0));
+  } catch (tf2::LookupException &e) {
+    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
+  }
+
+  // transform
+  T tf_msg;
+  tf2::doTransform(*msg, tf_msg, tf);
+
+  // publish
+  NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", msg->header.frame_id.c_str(), frame_id_.c_str());
+  publisher_.publish(tf_msg);
+}
+
 
 }  // namespace generic_transform
