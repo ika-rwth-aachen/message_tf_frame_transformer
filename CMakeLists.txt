@@ -24,8 +24,8 @@ elseif(${ROS_VERSION} EQUAL 1)
     nodelet
     roscpp
     tf2
-    tf2_ros
     tf2_geometry_msgs
+    tf2_ros
     tf2_sensor_msgs
     topic_tools
   )
@@ -121,9 +121,13 @@ elseif(${ROS_VERSION} EQUAL 1)
     INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
     CATKIN_DEPENDS
+      geometry_msgs
       nodelet
       roscpp
       tf2
+      tf2_geometry_msgs
+      tf2_ros
+      tf2_sensor_msgs
       topic_tools
     # DEPENDS
   )

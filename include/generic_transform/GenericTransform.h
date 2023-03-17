@@ -85,6 +85,7 @@ void GenericTransform::transform(const typename T::ConstPtr& msg) {
     tf_buffer_.transform(*msg, tf_msg, frame_id_);
   } catch (tf2::LookupException &e) {
     NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
+    return;
   }
 
   // publish

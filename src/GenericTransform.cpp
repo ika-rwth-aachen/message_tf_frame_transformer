@@ -28,7 +28,6 @@ SOFTWARE.
 #include <generic_transform/GenericTransform.h>
 #include <generic_transform/message_types.h>
 #include <pluginlib/class_list_macros.h>
-#include <geometry_msgs/TransformStamped.h>
 #include <ros/message_traits.h>
 
 
@@ -57,7 +56,10 @@ void GenericTransform::onInit() {
 void GenericTransform::loadParameters() {
 
   bool found = private_node_handle_.getParam(kFrameIdParam, frame_id_);
-  if (!found) NODELET_ERROR("Parameter '%s' is missing", kFrameIdParam.c_str());
+  if (!found) {
+    NODELET_FATAL("Parameter '%s' is required", kFrameIdParam.c_str());
+    exit(EXIT_FAILURE);
+  }
 
   NODELET_INFO("Transforming data on topic '%s' to frame '%s' published on topic '%s'",
                ros::names::resolve("~" + kInputTopic).c_str(), frame_id_.c_str(),
@@ -99,7 +101,7 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
       kInputTopic,                                                              \
       10,                                                                       \
       &GenericTransform::transform<sensor_msgs::PointCloud2>,                   \
-    this                                                                        \
+      this                                                                      \
     );                                                                          \
                                                                                 \
   }
