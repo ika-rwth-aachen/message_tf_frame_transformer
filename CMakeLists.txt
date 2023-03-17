@@ -25,6 +25,7 @@ elseif(${ROS_VERSION} EQUAL 1)
     roscpp
     tf2
     tf2_ros
+    tf2_geometry_msgs
     tf2_sensor_msgs
     topic_tools
   )

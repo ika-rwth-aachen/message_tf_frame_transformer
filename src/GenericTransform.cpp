@@ -30,7 +30,6 @@ SOFTWARE.
 #include <pluginlib/class_list_macros.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <ros/message_traits.h>
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 
 
 PLUGINLIB_EXPORT_CLASS(generic_transform::GenericTransform, nodelet::Nodelet)
