@@ -1,6 +1,6 @@
-MESSAGE_TYPE(geometry_msgs::msg::PointStamped)
-MESSAGE_TYPE(geometry_msgs::msg::PoseStamped)
-MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped)
-MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped)
+MESSAGE_TYPE(geometry_msgs::msg::PointStamped, geometry_msgs/msg/PointStamped)
+MESSAGE_TYPE(geometry_msgs::msg::PoseStamped, geometry_msgs/msg/PoseStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
+MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
 
-MESSAGE_TYPE(sensor_msgs::msg::PointCloud2)
+MESSAGE_TYPE(sensor_msgs::msg::PointCloud2, sensor_msgs/msg/PointCloud2)

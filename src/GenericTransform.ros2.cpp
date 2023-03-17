@@ -25,6 +25,8 @@ SOFTWARE.
 */
 
 
+#include <regex>
+
 #include <generic_transform/GenericTransform.ros2.hpp>
 #include <generic_transform/message_types.ros2.hpp>
 
@@ -67,42 +69,68 @@ void GenericTransform::setup() {
   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
   tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
-  // setup subscriber to detect message type
-  subscriber_ = this->create_generic_subscription(
-    kInputTopic,
-    "sensor_msgs/msg/PointCloud2",
-    10,
-    std::bind(&GenericTransform::detectMessageType, this, std::placeholders::_1)
-  );
-
-  RCLCPP_INFO(this->get_logger(),
-    "Transforming data on topic '%s' to frame '%s'",
-    subscriber_->get_topic_name(),
-    frame_id_.c_str()
-  );
+  // setup timer to detect subscription type and then subscribe
+  detect_message_type_timer_ =
+    create_wall_timer(std::chrono::duration<double>(0.001),
+                      std::bind(&GenericTransform::detectMessageType, this));
 }
 
 
-void GenericTransform::detectMessageType(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
+void GenericTransform::detectMessageType() {
 
-  // TODO: find way to determine message type
+  // check if topic to subscribe exists
+  std::string resolved_input_topic = kInputTopic;
+  resolved_input_topic = std::regex_replace(
+    resolved_input_topic,
+    std::regex("~"),
+    std::string(this->get_namespace()) + this->get_name()
+  );
+  const auto all_topics_and_types = get_topic_names_and_types();
+  if (all_topics_and_types.count(resolved_input_topic)) {
 
-  msg_type_ = "sensor_msgs::msg::PointCloud2";
+    detect_message_type_timer_->cancel();
+    msg_type_ = all_topics_and_types.at(resolved_input_topic)[0];
+    RCLCPP_DEBUG(this->get_logger(), "Detected message type '%s'", msg_type_.c_str());
 
-  // setup publisher
-  if (msg_type_.empty()) {
-    publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(kOutputTopic, 10);
+    // setup publisher with correct message type
+    if (msg_type_ == "sensor_msgs/msg/PointCloud2") {
+      publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(kOutputTopic, 10);
+    }
+
+    // setup generic subscriber with correct message type (will have missed at least one message)
+    subscriber_ = this->create_generic_subscription(
+      kInputTopic,
+      msg_type_,
+      10,
+      std::bind(&GenericTransform::transformGeneric, this, std::placeholders::_1)
+    );
+
+    RCLCPP_INFO(this->get_logger(),
+      "Transforming data on topic '%s' to frame '%s' published on topic '%s'",
+      subscriber_->get_topic_name(),
+      publisher_->get_topic_name(),
+      frame_id_.c_str()
+    );
   }
+}
 
-  // instantiate generic message as message of concrete type
-  sensor_msgs::msg::PointCloud2 msg;
-  rclcpp::Serialization<sensor_msgs::msg::PointCloud2> serializer;
-  serializer.deserialize_message(serialized_msg.get(), &msg);
 
-  // pass message to transform callback
-  this->transform<sensor_msgs::msg::PointCloud2>(msg);
+void GenericTransform::transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
 
-  RCLCPP_DEBUG(this->get_logger(), "Detected message type '%s'", msg_type_.c_str());
+  if (false) {}
+#define MESSAGE_TYPE(TYPE, NAME)                                                      \
+  else if (msg_type_ == #NAME) {                                                      \
+                                                                                      \
+    /* instantiate generic message as message of concrete type */                     \
+    TYPE msg;                                                                         \
+    rclcpp::Serialization<TYPE> serializer;                                           \
+    serializer.deserialize_message(serialized_msg.get(), &msg);                       \
+                                                                                      \
+    /* pass message to transform callback */                                          \
+    this->transform<TYPE>(msg);                                                       \
+  }
+#include "generic_transform/message_types.ros2.macro"
+#undef MESSAGE_TYPE
 }
 
 

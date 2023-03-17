@@ -50,7 +50,9 @@ class GenericTransform : public rclcpp::Node {
 
   void setup();
 
-  void detectMessageType(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg);
+  void detectMessageType();
+
+  void transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg);
 
   template <typename T>
   void transform(const T& msg);
@@ -68,6 +70,8 @@ class GenericTransform : public rclcpp::Node {
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
 
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+
+  rclcpp::TimerBase::SharedPtr detect_message_type_timer_;
 
   rclcpp::GenericSubscription::SharedPtr subscriber_;
   
