@@ -1,9 +1,0 @@
-<launch>
-
-  <arg name="params_file" default="$(find generic_transform)/config/params.yaml" />
-
-  <node pkg="nodelet" type="nodelet" name="$(anon generic_transform)" args="standalone generic_transform/GenericTransform" output="screen">
-    <rosparam command="load" file="$(arg params_file)" />
-  </node>
-
-</launch>
