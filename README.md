@@ -20,9 +20,17 @@ This package provides a ROS / ROS2 node to transform arbitrary ROS messages to a
 
 ## Nodes
 
+##### ROS 2
+
 | Package | Node | Description |
 | --- | --- | --- |
 | `generic_transform` | `generic_transform` | transform arbitrary ROS messages to a different coordinate frame |
+
+##### ROS
+
+| Package | Nodelet | Description |
+| --- | --- | --- |
+| `generic_transform` | `GenericTransform` | transform arbitrary ROS messages to a different coordinate frame |
 
 ### generic_transform/generic_transform
 
