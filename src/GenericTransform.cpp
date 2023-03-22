@@ -46,6 +46,7 @@ const std::string GenericTransform::kFrameIdParam = "frame_id";
 
 void GenericTransform::onInit() {
 
+  node_handle_ = this->getMTNodeHandle();
   private_node_handle_ = this->getMTPrivateNodeHandle();
 
   loadParameters();

@@ -64,6 +64,8 @@ class GenericTransform : public nodelet::Nodelet {
 
   std::string frame_id_;
 
+  ros::NodeHandle node_handle_;
+
   ros::NodeHandle private_node_handle_;
 
   tf2_ros::Buffer tf_buffer_;
