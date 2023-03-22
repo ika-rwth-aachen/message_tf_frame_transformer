@@ -60,6 +60,14 @@ void GenericTransform::loadParameters() {
     RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kFrameIdParam.c_str());
     exit(EXIT_FAILURE);
   }
+
+  RCLCPP_INFO(
+    this->get_logger(),
+    "Transforming data on topic '%s' to frame '%s' published on topic '%s'",
+    this->get_node_topics_interface()->resolve_topic_name(kInputTopic).c_str(),
+    frame_id_.c_str(),
+    this->get_node_topics_interface()->resolve_topic_name(kOutputTopic).c_str()
+  );
 }
 
 
@@ -103,13 +111,6 @@ void GenericTransform::detectMessageType() {
       msg_type_,
       10,
       std::bind(&GenericTransform::transformGeneric, this, std::placeholders::_1)
-    );
-
-    RCLCPP_INFO(this->get_logger(),
-      "Transforming data on topic '%s' to frame '%s' published on topic '%s'",
-      subscriber_->get_topic_name(),
-      publisher_->get_topic_name(),
-      frame_id_.c_str()
     );
   }
 }
