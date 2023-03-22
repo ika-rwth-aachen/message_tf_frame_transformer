@@ -98,7 +98,6 @@ void GenericTransform::detectMessageType() {
 
     detect_message_type_timer_->cancel();
     msg_type_ = all_topics_and_types.at(resolved_input_topic)[0];
-    RCLCPP_DEBUG(this->get_logger(), "Detected message type '%s'", msg_type_.c_str());
 
     // setup publisher with correct message type
     if (false) {}
@@ -116,6 +115,12 @@ void GenericTransform::detectMessageType() {
       10,
       std::bind(&GenericTransform::transformGeneric, this, std::placeholders::_1)
     );
+
+    RCLCPP_WARN(this->get_logger(),
+      "Subscribed to message type '%s' on topic '%s'; first message may have been missed",
+      msg_type_.c_str(),
+      subscriber_->get_topic_name()
+    );
   }
 }
 
@@ -123,16 +128,16 @@ void GenericTransform::detectMessageType() {
 void GenericTransform::transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
 
   if (false) {}
-#define MESSAGE_TYPE(TYPE, NAME)                                                      \
-  else if (msg_type_ == #NAME) {                                                      \
-                                                                                      \
-    /* instantiate generic message as message of concrete type */                     \
-    TYPE msg;                                                                         \
-    rclcpp::Serialization<TYPE> serializer;                                           \
-    serializer.deserialize_message(serialized_msg.get(), &msg);                       \
-                                                                                      \
-    /* pass message to transform callback */                                          \
-    this->transform<TYPE>(msg);                                                       \
+#define MESSAGE_TYPE(TYPE, NAME)                                               \
+  else if (msg_type_ == #NAME) {                                               \
+                                                                               \
+    /* instantiate generic message as message of concrete type */              \
+    TYPE msg;                                                                  \
+    rclcpp::Serialization<TYPE> serializer;                                    \
+    serializer.deserialize_message(serialized_msg.get(), &msg);                \
+                                                                               \
+    /* pass message to transform callback */                                   \
+    this->transform<TYPE>(msg);                                                \
   }
 #include "generic_transform/message_types.ros2.macro"
 #undef MESSAGE_TYPE

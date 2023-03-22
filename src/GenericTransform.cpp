@@ -85,26 +85,26 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
 
   // detect message type based on md5 hash
   if (false) {}
-#define MESSAGE_TYPE(TYPE)                                                      \
-  else if (msg_type_md5 == ros::message_traits::MD5Sum<TYPE>::value()) {        \
-                                                                                \
-    /* instantiate generic message as message of concrete type */               \
-    msg_type = #TYPE;                                                           \
-    TYPE::ConstPtr msg = generic_msg->instantiate<TYPE>();                      \
-                                                                                \
-    /* setup publisher and pass message to transform callback */                \
-    publisher_ = private_node_handle_.advertise<TYPE>(kOutputTopic, 10);        \
-    this->transform<TYPE>(msg);                                                 \
-                                                                                \
-    /* re-initialize concrete subscriber */                                     \
-    subscriber_.shutdown();                                                     \
-    subscriber_ = private_node_handle_.subscribe(                               \
-      kInputTopic,                                                              \
-      10,                                                                       \
-      &GenericTransform::transform<sensor_msgs::PointCloud2>,                   \
-      this                                                                      \
-    );                                                                          \
-                                                                                \
+#define MESSAGE_TYPE(TYPE)                                                     \
+  else if (msg_type_md5 == ros::message_traits::MD5Sum<TYPE>::value()) {       \
+                                                                               \
+    /* instantiate generic message as message of concrete type */              \
+    msg_type = #TYPE;                                                          \
+    TYPE::ConstPtr msg = generic_msg->instantiate<TYPE>();                     \
+                                                                               \
+    /* setup publisher and pass message to transform callback */               \
+    publisher_ = private_node_handle_.advertise<TYPE>(kOutputTopic, 10);       \
+    this->transform<TYPE>(msg);                                                \
+                                                                               \
+    /* re-initialize concrete subscriber */                                    \
+    subscriber_.shutdown();                                                    \
+    subscriber_ = private_node_handle_.subscribe(                              \
+      kInputTopic,                                                             \
+      10,                                                                      \
+      &GenericTransform::transform<sensor_msgs::PointCloud2>,                  \
+      this                                                                     \
+    );                                                                         \
+                                                                               \
   }
 #include "generic_transform/message_types.macro"
 #undef MESSAGE_TYPE
