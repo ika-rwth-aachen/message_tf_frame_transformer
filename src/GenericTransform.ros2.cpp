@@ -101,9 +101,13 @@ void GenericTransform::detectMessageType() {
     RCLCPP_DEBUG(this->get_logger(), "Detected message type '%s'", msg_type_.c_str());
 
     // setup publisher with correct message type
-    if (msg_type_ == "sensor_msgs/msg/PointCloud2") {
-      publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(kOutputTopic, 10);
+    if (false) {}
+#define MESSAGE_TYPE(TYPE, NAME)                                               \
+    else if (msg_type_ == #NAME) {                                             \
+      publisher_ = this->create_publisher<TYPE>(kOutputTopic, 10);             \
     }
+#include "generic_transform/message_types.ros2.macro"
+#undef MESSAGE_TYPE
 
     // setup generic subscriber with correct message type (will have missed at least one message)
     subscriber_ = this->create_generic_subscription(
