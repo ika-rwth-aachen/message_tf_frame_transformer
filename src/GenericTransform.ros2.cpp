@@ -87,17 +87,13 @@ void GenericTransform::setup() {
 void GenericTransform::detectMessageType() {
 
   // check if topic to subscribe exists
-  std::string resolved_input_topic = kInputTopic;
-  resolved_input_topic = std::regex_replace(
-    resolved_input_topic,
-    std::regex("~"),
-    std::string(this->get_namespace()) + this->get_name()
-  );
+  std::string resolved_input_topic = this->get_node_topics_interface()->resolve_topic_name(kInputTopic);
   const auto all_topics_and_types = get_topic_names_and_types();
   if (all_topics_and_types.count(resolved_input_topic)) {
 
     detect_message_type_timer_->cancel();
     msg_type_ = all_topics_and_types.at(resolved_input_topic)[0];
+    RCLCPP_DEBUG(this->get_logger(), "Detected message type '%s'", msg_type_.c_str());
 
     // setup publisher with correct message type
     if (false) {}
@@ -107,6 +103,12 @@ void GenericTransform::detectMessageType() {
     }
 #include "generic_transform/message_types.ros2.macro"
 #undef MESSAGE_TYPE
+    else {
+      RCLCPP_ERROR(this->get_logger(), "Transforming message type '%s' is not supported",
+                   msg_type_.c_str());
+      detect_message_type_timer_->reset();
+      return;
+    }
 
     // setup generic subscriber with correct message type (will have missed at least one message)
     subscriber_ = this->create_generic_subscription(

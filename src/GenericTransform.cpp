@@ -80,8 +80,9 @@ void GenericTransform::setup() {
 
 void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstPtr& generic_msg) {
 
-  std::string msg_type;
+  const std::string msg_type = generic_msg->getDataType();
   const std::string& msg_type_md5 = generic_msg->getMD5Sum();
+  NODELET_DEBUG("Detected message type '%s'", msg_type.c_str());
 
   // detect message type based on md5 hash
   if (false) {}
@@ -89,7 +90,6 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
   else if (msg_type_md5 == ros::message_traits::MD5Sum<TYPE>::value()) {       \
                                                                                \
     /* instantiate generic message as message of concrete type */              \
-    msg_type = #TYPE;                                                          \
     TYPE::ConstPtr msg = generic_msg->instantiate<TYPE>();                     \
                                                                                \
     /* setup publisher and pass message to transform callback */               \
@@ -108,8 +108,11 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
   }
 #include "generic_transform/message_types.macro"
 #undef MESSAGE_TYPE
-
-  NODELET_DEBUG("Detected message type '%s'", msg_type.c_str());
+  else {
+    NODELET_ERROR("Transforming message type '%s' is not supported",
+                  msg_type.c_str());
+    return;
+  }
 }
 
 
