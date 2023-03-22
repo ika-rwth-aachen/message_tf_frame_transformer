@@ -1,3 +1,18 @@
+/* =============================================================================
+The lines below represent calls to a macro named MESSAGE_TYPE.
+Wherever needed, this macro may be defined and called for all supported
+message types by including this file.
+
+Example:
+
+#define MESSAGE_TYPE(TYPE, NAME)                                               \
+  std::cout << "The ROS message type " << #TYPE << " is supported. ";          \
+  std::cout << std::endl;
+#include "generic_transform/message_types.ros2.macro"
+#undef MESSAGE_TYPE
+
+============================================================================= */
+
 MESSAGE_TYPE(geometry_msgs::msg::PointStamped, geometry_msgs/msg/PointStamped)
 MESSAGE_TYPE(geometry_msgs::msg::PoseStamped, geometry_msgs/msg/PoseStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
