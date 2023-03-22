@@ -101,7 +101,7 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
     subscriber_ = private_node_handle_.subscribe(                              \
       kInputTopic,                                                             \
       10,                                                                      \
-      &GenericTransform::transform<sensor_msgs::PointCloud2>,                  \
+      &GenericTransform::transform<TYPE>,                                      \
       this                                                                     \
     );                                                                         \
                                                                                \
