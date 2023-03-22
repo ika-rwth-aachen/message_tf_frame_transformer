@@ -24,6 +24,14 @@ If you would like to install *generic_transform* from source, simply clone this 
 ```bash
 # generic_transform$
 rosdep install -r --ignore-src --from-paths .
+
+# ROS 2
+# workspace$
+colcon build --packages-up-to generic_transform --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+# ROS
+# workspace$
+catkin build -DCMAKE_BUILD_TYPE=Release generic_transform
 ```
 
 
