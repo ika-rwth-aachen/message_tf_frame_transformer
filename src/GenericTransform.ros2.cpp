@@ -104,8 +104,9 @@ void GenericTransform::detectMessageType() {
 #include "generic_transform/message_types.ros2.macro"
 #undef MESSAGE_TYPE
     else {
-      RCLCPP_ERROR(this->get_logger(), "Transforming message type '%s' is not supported",
-                   msg_type_.c_str());
+      RCLCPP_ERROR_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+        "Transforming message type '%s' is not supported",
+        msg_type_.c_str());
       detect_message_type_timer_->reset();
       return;
     }
