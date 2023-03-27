@@ -44,6 +44,12 @@ if(${ROS_VERSION} EQUAL 2)
     DESTINATION lib/${PROJECT_NAME}
   )
 
+  install(
+    DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}
+    FILES_MATCHING PATTERN "*ros2*"
+  )
+
   if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     # the following line skips the linter which checks for copyrights
@@ -251,6 +257,11 @@ elseif(${ROS_VERSION} EQUAL 1)
   install(FILES
     nodelet_plugins.xml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  )
+  install(DIRECTORY
+    launch
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+    PATTERN "*ros2*" EXCLUDE
   )
 
   #############

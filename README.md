@@ -62,10 +62,35 @@ rosrun generic_transform generic_transform \
   _frame_id:=$TARGET_FRAME_ID
 ```
 
+The provided launch file enables you to directly launch a [`tf2_ros/static_transform_publisher`](http://wiki.ros.org/tf2_ros) alongside the *generic_transform* node. This way you can transform a topic to a new coordinate frame with a single command.
+
+```bash
+# ROS 2
+ ros2 launch generic_transform generic_transform.launch.ros2.xml \
+  input_topic:=$INPUT_TOPIC \
+  output_topic:=$OUTPUT_TOPIC \
+  source_frame_id:=$SOURCE_FRAME_ID \
+  target_frame_id:=$TARGET_FRAME_ID \
+  x:=$X \
+  y:=$Y \
+  z:=$Z \
+  roll:=$ROLL \
+  pitch:=$PITCH \
+  yaw:=$YAW
+
+# ROS
+roslaunch generic_transform generic_transform.launch \
+  input_topic:=$INPUT_TOPIC \
+  output_topic:=$OUTPUT_TOPIC \
+  source_frame_id:=$SOURCE_FRAME_ID \
+  target_frame_id:=$TARGET_FRAME_ID \
+  xyzrpy:="$X $Y $Z $ROLL $PITCH $YAW"
+```
+
 
 ## Supported Message Types
 
-The *generic_transform* package is able to support any ROS message types that integrates with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Currently the following message types are explicitly supported.
+The *generic_transform* package is able to support any ROS message type that integrates with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Currently, the following message types are explicitly supported.
 
 | ROS | ROS 2 |
 | --- | --- |
