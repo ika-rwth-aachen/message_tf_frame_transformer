@@ -9,7 +9,7 @@
   <a href="https://github.com/ika-rwth-aachen/generic_transform"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/generic_transform?style=social"/></a>
 </p>
 
-The *generic_transform* package provides a ROS / ROS 2 node(let) to transform arbitrary ROS messages to a different coordinate frame.
+The *generic_transform* package provides a ROS / ROS 2 node(let) to transform ROS messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *generic_transform* node and transform arbitrary ROS message to a target coordinate frame.
 
 - [Installation](#installation)
 - [Usage](#usage)
