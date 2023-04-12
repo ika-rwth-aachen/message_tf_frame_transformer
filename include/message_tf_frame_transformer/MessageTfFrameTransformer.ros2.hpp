@@ -29,6 +29,7 @@ SOFTWARE.
 
 #include <memory>
 #include <string>
+#include <type_traits>
 
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/serialization.hpp>
@@ -37,6 +38,19 @@ SOFTWARE.
 
 
 namespace message_tf_frame_transformer {
+
+
+// definitions for distinguishing between ROS messages with/without header
+// based on SFINAE (https://fekir.info/post/detect-member-variables/)
+using HasRosHeaderNo = std::false_type;
+using HasRosHeaderYes = std::true_type;
+
+template <typename T, typename = std_msgs::msg::Header>
+struct HasRosHeader : HasRosHeaderNo {};
+
+template <typename T>
+struct HasRosHeader<T, decltype(T::header)> : HasRosHeaderYes {};
+
 
 class MessageTfFrameTransformer : public rclcpp::Node {
 
@@ -57,15 +71,25 @@ class MessageTfFrameTransformer : public rclcpp::Node {
   template <typename T>
   void transform(const T& msg);
 
+  template <typename T>
+  void transform(const T& msg, const HasRosHeaderYes&);
+
+  template <typename T>
+  void transform(const T& msg, const HasRosHeaderNo&);
+
  protected:
 
   static const std::string kInputTopic;
 
   static const std::string kOutputTopic;
 
-  static const std::string kFrameIdParam;
+  static const std::string kSourceFrameIdParam;
 
-  std::string frame_id_;
+  static const std::string kTargetFrameIdParam;
+
+  std::string source_frame_id_;
+
+  std::string target_frame_id_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
 
@@ -83,15 +107,20 @@ class MessageTfFrameTransformer : public rclcpp::Node {
 
 template <typename T>
 void MessageTfFrameTransformer::transform(const T& msg) {
+  this->transform<T>(msg, HasRosHeader<T>());
+}
+
+template <typename T>
+void MessageTfFrameTransformer::transform(const T& msg, const HasRosHeaderYes&) {
 
   // transform
   T tf_msg;
   try {
-    tf_buffer_->transform(msg, tf_msg, frame_id_);
+    tf_buffer_->transform(msg, tf_msg, target_frame_id_);
   } catch (tf2::LookupException &e) {
     RCLCPP_ERROR(
       this->get_logger(),
-      "Failed to lookup transform from '%s' to '%s': %s", msg.header.frame_id.c_str(), frame_id_.c_str(), e.what()
+      "Failed to lookup transform from '%s' to '%s': %s", msg.header.frame_id.c_str(), target_frame_id_.c_str(), e.what()
     );
     return;
   }
@@ -99,7 +128,42 @@ void MessageTfFrameTransformer::transform(const T& msg) {
   // publish
   RCLCPP_DEBUG(
     this->get_logger(),
-    "Publishing data transformed from '%s' to '%s'", msg.header.frame_id.c_str(), frame_id_.c_str()
+    "Publishing data transformed from '%s' to '%s'", msg.header.frame_id.c_str(), target_frame_id_.c_str()
+  );
+  std::static_pointer_cast<rclcpp::Publisher<T>>(publisher_)->publish(tf_msg);
+}
+
+template <typename T>
+void MessageTfFrameTransformer::transform(const T& msg, const HasRosHeaderNo&) {
+
+  if (source_frame_id_.empty()) {
+    RCLCPP_ERROR(
+      this->get_logger(),
+      "Transforming messages without an 'std_msgs/Header' requires the '%s' parameter to be set", kSourceFrameIdParam.c_str()
+    );
+    return;
+  }
+
+  // lookup transform
+  geometry_msgs::msg::TransformStamped tf;
+  try {
+    tf = tf_buffer_->lookupTransform(target_frame_id_, source_frame_id_, tf2::TimePointZero);
+  } catch (tf2::LookupException &e) {
+    RCLCPP_ERROR(
+      this->get_logger(),
+      "Failed to lookup transform from '%s' to '%s': %s", source_frame_id_.c_str(), target_frame_id_.c_str(), e.what()
+    );
+    return;
+  }
+
+  // transform
+  T tf_msg;
+  tf2::doTransform(msg, tf_msg, tf);
+
+  // publish
+  RCLCPP_DEBUG(
+    this->get_logger(),
+    "Publishing data transformed from '%s' to '%s'", source_frame_id_.c_str(), target_frame_id_.c_str()
   );
   std::static_pointer_cast<rclcpp::Publisher<T>>(publisher_)->publish(tf_msg);
 }

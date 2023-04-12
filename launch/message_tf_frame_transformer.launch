@@ -11,7 +11,8 @@
   <node pkg="nodelet" type="nodelet" name="$(anon message_tf_frame_transformer)" args="standalone message_tf_frame_transformer/MessageTfFrameTransformer" output="screen">
     <remap from="~input" to="$(arg input_topic)" />
     <remap from="~transformed" to="$(arg output_topic)" />
-    <param name="frame_id" value="$(arg target_frame_id)" />
+    <param name="source_frame_id" value="$(arg source_frame_id)" />
+    <param name="target_frame_id" value="$(arg target_frame_id)" />
   </node>
 
 </launch>

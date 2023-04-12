@@ -29,6 +29,7 @@ SOFTWARE.
 
 #include <memory>
 #include <string>
+#include <type_traits>
 
 #include <nodelet/nodelet.h>
 #include <ros/ros.h>
@@ -38,6 +39,19 @@ SOFTWARE.
 
 
 namespace message_tf_frame_transformer {
+
+
+// definitions for distinguishing between ROS messages with/without header
+// based on SFINAE (https://fekir.info/post/detect-member-variables/)
+using HasRosHeaderNo = std::false_type;
+using HasRosHeaderYes = std::true_type;
+
+template <typename T, typename = std_msgs::Header>
+struct HasRosHeader : HasRosHeaderNo {};
+
+template <typename T>
+struct HasRosHeader<T, decltype(T::header)> : HasRosHeaderYes {};
+
 
 class MessageTfFrameTransformer : public nodelet::Nodelet {
 
@@ -54,15 +68,25 @@ class MessageTfFrameTransformer : public nodelet::Nodelet {
   template <typename T>
   void transform(const typename T::ConstPtr& msg);
 
+  template <typename T>
+  void transform(const typename T::ConstPtr& msg, const HasRosHeaderYes&);
+
+  template <typename T>
+  void transform(const typename T::ConstPtr& msg, const HasRosHeaderNo&);
+
  protected:
 
   static const std::string kInputTopic;
 
   static const std::string kOutputTopic;
 
-  static const std::string kFrameIdParam;
+  static const std::string kSourceFrameIdParam;
 
-  std::string frame_id_;
+  static const std::string kTargetFrameIdParam;
+
+  std::string source_frame_id_;
+
+  std::string target_frame_id_;
 
   ros::NodeHandle node_handle_;
 
@@ -80,18 +104,49 @@ class MessageTfFrameTransformer : public nodelet::Nodelet {
 
 template <typename T>
 void MessageTfFrameTransformer::transform(const typename T::ConstPtr& msg) {
+  this->transform<T>(msg, HasRosHeader<T>());
+}
+
+template <typename T>
+void MessageTfFrameTransformer::transform(const typename T::ConstPtr& msg, const HasRosHeaderYes&) {
 
   // transform
   T tf_msg;
   try {
-    tf_buffer_.transform(*msg, tf_msg, frame_id_);
+    tf_buffer_.transform(*msg, tf_msg, target_frame_id_);
   } catch (tf2::LookupException &e) {
-    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
+    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), target_frame_id_.c_str(), e.what());
     return;
   }
 
   // publish
-  NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", msg->header.frame_id.c_str(), frame_id_.c_str());
+  NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", msg->header.frame_id.c_str(), target_frame_id_.c_str());
+  publisher_.publish(tf_msg);
+}
+
+template <typename T>
+void MessageTfFrameTransformer::transform(const typename T::ConstPtr& msg, const HasRosHeaderNo&) {
+
+  if (source_frame_id_.empty()) {
+    NODELET_ERROR("Transforming messages without an 'std_msgs/Header' requires the '%s' parameter to be set", kSourceFrameIdParam.c_str());
+    return;
+  }
+
+  // lookup transform
+  geometry_msgs::TransformStamped tf;
+  try {
+    tf = tf_buffer_.lookupTransform(target_frame_id_, source_frame_id_, ros::Time(0));
+  } catch (tf2::LookupException &e) {
+    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", source_frame_id_.c_str(), target_frame_id_.c_str(), e.what());
+    return;
+  }
+
+  // transform
+  T tf_msg;
+  tf2::doTransform(*msg, tf_msg, tf);
+
+  // publish
+  NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", source_frame_id_.c_str(), target_frame_id_.c_str());
   publisher_.publish(tf_msg);
 }
 

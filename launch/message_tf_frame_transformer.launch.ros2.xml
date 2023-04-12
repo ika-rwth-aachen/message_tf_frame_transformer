@@ -16,7 +16,8 @@
   <node pkg="message_tf_frame_transformer" exec="message_tf_frame_transformer" name="message_tf_frame_transformer" output="screen">
     <remap from="~/input" to="$(var input_topic)" />
     <remap from="~/transformed" to="$(var output_topic)" />
-    <param name="frame_id" value="$(var target_frame_id)" />
+    <param name="source_frame_id" value="$(var source_frame_id)" />
+    <param name="target_frame_id" value="$(var target_frame_id)" />
   </node>
 
 </launch>

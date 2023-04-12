@@ -46,20 +46,22 @@ catkin build -DCMAKE_BUILD_TYPE=Release message_tf_frame_transformer
 
 ## Usage
 
-In order to transform messages on topic `$INPUT_TOPIC` to frame `$TARGET_FRAME_ID` and publish them to topic `$OUTPUT_TOPIC`, the *message_tf_frame_transformer* node can be started with the following topic remappings and parameter setting. The `frame_id` parameter is required, while the topics otherwise default to `~/input` and `~/transformed` in the node's private namespace.
+In order to transform messages on topic `$INPUT_TOPIC` to frame `$TARGET_FRAME_ID` and publish them to topic `$OUTPUT_TOPIC`, the *message_tf_frame_transformer* node can be started with the following topic remappings and parameter setting. Only the `target_frame_id` parameter is required. The `source_frame_id` parameter is only required for non-stamped messages without an [`std_msgs/Header`](https://docs.ros.org/en/api/std_msgs/html/msg/Header.html). The topics default to `~/input` and `~/transformed` in the node's private namespace.
 
 ```bash
 # ROS 2
 ros2 run message_tf_frame_transformer message_tf_frame_transformer --ros-args \
   -r \~/input:=$INPUT_TOPIC \
   -r \~/transformed:=$OUTPUT_TOPIC \
-  -p frame_id:=$TARGET_FRAME_ID
+  -p source_frame_id:=$SOURCE_FRAME_ID \
+  -p target_frame_id:=$TARGET_FRAME_ID
 
 # ROS
 rosrun message_tf_frame_transformer message_tf_frame_transformer \
   ~input:=$INPUT_TOPIC \
   ~transformed:=$OUTPUT_TOPIC \
-  _frame_id:=$TARGET_FRAME_ID
+  _source_frame_id:=$SOURCE_FRAME_ID \
+  _target_frame_id:=$TARGET_FRAME_ID
 ```
 
 The provided launch file enables you to directly launch a [`tf2_ros/static_transform_publisher`](http://wiki.ros.org/tf2_ros) alongside the *message_tf_frame_transformer* node. This way you can transform a topic to a new coordinate frame with a single command.
@@ -94,12 +96,19 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 
 | ROS | ROS 2 |
 | --- | --- |
+| [`geometry_msgs/Point`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Point.html) | [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |
 | [`geometry_msgs/PointStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PointStamped.html) | [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |
+| [`geometry_msgs/Pose`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html) | [`geometry_msgs/msg/Pose`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Pose.html) |
 | [`geometry_msgs/PoseStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html) | [`geometry_msgs/msg/PoseStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html) |
+| [`geometry_msgs/PoseWithCovariance`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovariance.html) | [`geometry_msgs/msg/PoseWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovariance.html) |
 | [`geometry_msgs/PoseWithCovarianceStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html) | [`geometry_msgs/msg/PoseWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) |
+| [`geometry_msgs/Quaternion`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Quaternion.html) | [`geometry_msgs/msg/Quaternion`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Quaternion.html) |
 | [`geometry_msgs/QuaternionStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/QuaternionStamped.html) | [`geometry_msgs/msg/QuaternionStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/QuaternionStamped.html) |
+| [`geometry_msgs/Transform`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Transform.html) | [`geometry_msgs/msg/Transform`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Transform.html) |
 | [`geometry_msgs/TransformStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/TransformStamped.html) | [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |
+| [`geometry_msgs/Vector3`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3.html) | [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |
 | [`geometry_msgs/Vector3Stamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3Stamped.html) | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |
+| [`geometry_msgs/Wrench`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Wrench.html) | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |
 | [`geometry_msgs/WrenchStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/WrenchStamped.html) | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |
 | [`sensor_msgs/PointCloud2`](http://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) |
 
@@ -155,7 +164,8 @@ Through application of preprocessor macros, adding support for a new ROS message
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `~/frame_id` | `string` | target frame ID |
+| `~/target_frame_id` | `string` | target frame ID |
+| `~/source_frame_id` | `string` | source frame ID (optional; if message has no [`std_msgs/Header`](https://docs.ros.org/en/api/std_msgs/html/msg/Header.html)) |
 
 
 ## Acknowledgements

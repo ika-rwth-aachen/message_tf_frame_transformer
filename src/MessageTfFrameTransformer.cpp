@@ -41,7 +41,9 @@ const std::string MessageTfFrameTransformer::kInputTopic = "input";
 
 const std::string MessageTfFrameTransformer::kOutputTopic = "transformed";
 
-const std::string MessageTfFrameTransformer::kFrameIdParam = "frame_id";
+const std::string MessageTfFrameTransformer::kSourceFrameIdParam = "source_frame_id";
+
+const std::string MessageTfFrameTransformer::kTargetFrameIdParam = "target_frame_id";
 
 
 void MessageTfFrameTransformer::onInit() {
@@ -56,14 +58,16 @@ void MessageTfFrameTransformer::onInit() {
 
 void MessageTfFrameTransformer::loadParameters() {
 
-  bool found = private_node_handle_.getParam(kFrameIdParam, frame_id_);
+  private_node_handle_.getParam(kSourceFrameIdParam, source_frame_id_);
+
+  bool found = private_node_handle_.getParam(kTargetFrameIdParam, target_frame_id_);
   if (!found) {
-    NODELET_FATAL("Parameter '%s' is required", kFrameIdParam.c_str());
+    NODELET_FATAL("Parameter '%s' is required", kTargetFrameIdParam.c_str());
     exit(EXIT_FAILURE);
   }
 
   NODELET_INFO("Transforming data on topic '%s' to frame '%s' published on topic '%s'",
-               ros::names::resolve("~" + kInputTopic).c_str(), frame_id_.c_str(),
+               ros::names::resolve("~" + kInputTopic).c_str(), target_frame_id_.c_str(),
                ros::names::resolve("~" + kOutputTopic).c_str());
 }
 

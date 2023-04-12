@@ -38,7 +38,9 @@ const std::string MessageTfFrameTransformer::kInputTopic = "~/input";
 
 const std::string MessageTfFrameTransformer::kOutputTopic = "~/transformed";
 
-const std::string MessageTfFrameTransformer::kFrameIdParam = "frame_id";
+const std::string MessageTfFrameTransformer::kSourceFrameIdParam = "source_frame_id";
+
+const std::string MessageTfFrameTransformer::kTargetFrameIdParam = "target_frame_id";
 
 
 MessageTfFrameTransformer::MessageTfFrameTransformer() : Node("message_tf_frame_transformer") {
@@ -50,14 +52,22 @@ MessageTfFrameTransformer::MessageTfFrameTransformer() : Node("message_tf_frame_
 
 void MessageTfFrameTransformer::loadParameters() {
 
-  rcl_interfaces::msg::ParameterDescriptor param_desc;
-  param_desc.description = "Target frame ID to transform to";
-  this->declare_parameter(kFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, param_desc);
+  rcl_interfaces::msg::ParameterDescriptor source_frame_id_param_desc;
+  source_frame_id_param_desc.description = "Source frame ID to transform from (optional; if message has no std_msgs/Header)";
+  this->declare_parameter(kSourceFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, source_frame_id_param_desc);
 
   try {
-    frame_id_ = this->get_parameter(kFrameIdParam).as_string();
+    source_frame_id_ = this->get_parameter(kSourceFrameIdParam).as_string();
+  } catch (rclcpp::exceptions::ParameterUninitializedException&) {}
+
+  rcl_interfaces::msg::ParameterDescriptor target_frame_id_param_desc;
+  target_frame_id_param_desc.description = "Target frame ID to transform to";
+  this->declare_parameter(kTargetFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, target_frame_id_param_desc);
+
+  try {
+    target_frame_id_ = this->get_parameter(kTargetFrameIdParam).as_string();
   } catch (rclcpp::exceptions::ParameterUninitializedException&) {
-    RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kFrameIdParam.c_str());
+    RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kTargetFrameIdParam.c_str());
     exit(EXIT_FAILURE);
   }
 
@@ -65,7 +75,7 @@ void MessageTfFrameTransformer::loadParameters() {
     this->get_logger(),
     "Transforming data on topic '%s' to frame '%s' published on topic '%s'",
     this->get_node_topics_interface()->resolve_topic_name(kInputTopic).c_str(),
-    frame_id_.c_str(),
+    target_frame_id_.c_str(),
     this->get_node_topics_interface()->resolve_topic_name(kOutputTopic).c_str()
   );
 }
