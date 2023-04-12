@@ -49,7 +49,7 @@ tracks:
     release_inc: '2'
     release_repo_url: git@github.com:ika-rwth-aachen/message_tf_frame_transformer-release.git
     release_tag: v:{version}
-    ros_distro: noetic
+    ros_distro: humble
     vcs_type: git
     vcs_uri: https://github.com/ika-rwth-aachen/message_tf_frame_transformer.git
     version: :{auto}
