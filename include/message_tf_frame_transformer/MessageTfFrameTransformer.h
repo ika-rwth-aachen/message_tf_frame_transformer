@@ -30,32 +30,29 @@ SOFTWARE.
 #include <memory>
 #include <string>
 
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp/serialization.hpp>
+#include <nodelet/nodelet.h>
+#include <ros/ros.h>
+#include <topic_tools/shape_shifter.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
 
 
-namespace generic_transform {
+namespace message_tf_frame_transformer {
 
-class GenericTransform : public rclcpp::Node {
-
- public:
-
-  GenericTransform();
+class MessageTfFrameTransformer : public nodelet::Nodelet {
 
  protected:
+
+  virtual void onInit() override;
 
   void loadParameters();
 
   void setup();
 
-  void detectMessageType();
-
-  void transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg);
+  void detectMessageType(const topic_tools::ShapeShifter::ConstPtr& generic_msg);
 
   template <typename T>
-  void transform(const T& msg);
+  void transform(const typename T::ConstPtr& msg);
 
  protected:
 
@@ -67,42 +64,36 @@ class GenericTransform : public rclcpp::Node {
 
   std::string frame_id_;
 
-  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+  ros::NodeHandle node_handle_;
+
+  ros::NodeHandle private_node_handle_;
+
+  tf2_ros::Buffer tf_buffer_;
 
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
-  rclcpp::TimerBase::SharedPtr detect_message_type_timer_;
+  ros::Subscriber subscriber_;
 
-  rclcpp::GenericSubscription::SharedPtr subscriber_;
-  
-  rclcpp::PublisherBase::SharedPtr publisher_;
-
-  std::string msg_type_;
+  ros::Publisher publisher_;
 };
 
 
 template <typename T>
-void GenericTransform::transform(const T& msg) {
+void MessageTfFrameTransformer::transform(const typename T::ConstPtr& msg) {
 
   // transform
   T tf_msg;
   try {
-    tf_buffer_->transform(msg, tf_msg, frame_id_);
+    tf_buffer_.transform(*msg, tf_msg, frame_id_);
   } catch (tf2::LookupException &e) {
-    RCLCPP_ERROR(
-      this->get_logger(),
-      "Failed to lookup transform from '%s' to '%s': %s", msg.header.frame_id.c_str(), frame_id_.c_str(), e.what()
-    );
+    NODELET_ERROR("Failed to lookup transform from '%s' to '%s': %s", msg->header.frame_id.c_str(), frame_id_.c_str(), e.what());
     return;
   }
 
   // publish
-  RCLCPP_DEBUG(
-    this->get_logger(),
-    "Publishing data transformed from '%s' to '%s'", msg.header.frame_id.c_str(), frame_id_.c_str()
-  );
-  std::static_pointer_cast<rclcpp::Publisher<T>>(publisher_)->publish(tf_msg);
+  NODELET_DEBUG("Publishing data transformed from '%s' to '%s'", msg->header.frame_id.c_str(), frame_id_.c_str());
+  publisher_.publish(tf_msg);
 }
 
 
-}  // namespace generic_transform
+}  // namespace message_tf_frame_transformer

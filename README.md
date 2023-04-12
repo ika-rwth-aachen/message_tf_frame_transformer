@@ -1,15 +1,15 @@
-# generic_transform
+# message_tf_frame_transformer
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/ika-rwth-aachen/generic_transform"/>
-  <img src="https://img.shields.io/github/license/ika-rwth-aachen/generic_transform"/>
-  <a href="https://github.com/ika-rwth-aachen/generic_transform/actions/workflows/build.yml"><img src="https://github.com/ika-rwth-aachen/generic_transform/actions/workflows/build.yml/badge.svg"/></a>
+  <img src="https://img.shields.io/github/v/release/ika-rwth-aachen/message_tf_frame_transformer"/>
+  <img src="https://img.shields.io/github/license/ika-rwth-aachen/message_tf_frame_transformer"/>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml/badge.svg"/></a>
   <img src="https://img.shields.io/badge/ROS-noetic-blueviolet"/>
   <img src="https://img.shields.io/badge/ROS 2-humble|rolling-blueviolet"/>
-  <a href="https://github.com/ika-rwth-aachen/generic_transform"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/generic_transform?style=social"/></a>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/message_tf_frame_transformer?style=social"/></a>
 </p>
 
-The *generic_transform* package provides a ROS / ROS 2 node(let) to transform ROS messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *generic_transform* node and transform arbitrary ROS message to a target coordinate frame.
+The *message_tf_frame_transformer* package provides a ROS / ROS 2 node(let) to transform ROS messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *message_tf_frame_transformer* node and transform arbitrary ROS message to a target coordinate frame.
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -22,51 +22,51 @@ The *generic_transform* package provides a ROS / ROS 2 node(let) to transform RO
 
 > :warning: At the time of writing, the ROS package has not yet been released to the public package manager repositories yet. In case the installation fails, you have to install the package from source for now.
 
-The *generic_transform* package is released as an official ROS / ROS 2 package and can easily be installed via a package manager.
+The *message_tf_frame_transformer* package is released as an official ROS / ROS 2 package and can easily be installed via a package manager.
 
 ```bash
-sudo apt install ros-$ROS_DISTRO-generic-transform
+sudo apt install ros-$ROS_DISTRO-message-tf-frame-transformer
 ```
 
-If you would like to install *generic_transform* from source, simply clone this repository into your ROS workspace. All dependencies that are listed in the ROS [`package.xml`](./package.xml) can be installed using [*rosdep*](http://wiki.ros.org/rosdep).
+If you would like to install *message_tf_frame_transformer* from source, simply clone this repository into your ROS workspace. All dependencies that are listed in the ROS [`package.xml`](./package.xml) can be installed using [*rosdep*](http://wiki.ros.org/rosdep).
 
 ```bash
-# generic_transform$
+# message_tf_frame_transformer$
 rosdep install -r --ignore-src --from-paths .
 
 # ROS 2
 # workspace$
-colcon build --packages-up-to generic_transform --cmake-args -DCMAKE_BUILD_TYPE=Release
+colcon build --packages-up-to message_tf_frame_transformer --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 # ROS
 # workspace$
-catkin build -DCMAKE_BUILD_TYPE=Release generic_transform
+catkin build -DCMAKE_BUILD_TYPE=Release message_tf_frame_transformer
 ```
 
 
 ## Usage
 
-In order to transform messages on topic `$INPUT_TOPIC` to frame `$TARGET_FRAME_ID` and publish them to topic `$OUTPUT_TOPIC`, the *generic_transform* node can be started with the following topic remappings and parameter setting. The `frame_id` parameter is required, while the topics otherwise default to `~/input` and `~/transformed` in the node's private namespace.
+In order to transform messages on topic `$INPUT_TOPIC` to frame `$TARGET_FRAME_ID` and publish them to topic `$OUTPUT_TOPIC`, the *message_tf_frame_transformer* node can be started with the following topic remappings and parameter setting. The `frame_id` parameter is required, while the topics otherwise default to `~/input` and `~/transformed` in the node's private namespace.
 
 ```bash
 # ROS 2
-ros2 run generic_transform generic_transform --ros-args \
+ros2 run message_tf_frame_transformer message_tf_frame_transformer --ros-args \
   -r \~/input:=$INPUT_TOPIC \
   -r \~/transformed:=$OUTPUT_TOPIC \
   -p frame_id:=$TARGET_FRAME_ID
 
 # ROS
-rosrun generic_transform generic_transform \
+rosrun message_tf_frame_transformer message_tf_frame_transformer \
   ~input:=$INPUT_TOPIC \
   ~transformed:=$OUTPUT_TOPIC \
   _frame_id:=$TARGET_FRAME_ID
 ```
 
-The provided launch file enables you to directly launch a [`tf2_ros/static_transform_publisher`](http://wiki.ros.org/tf2_ros) alongside the *generic_transform* node. This way you can transform a topic to a new coordinate frame with a single command.
+The provided launch file enables you to directly launch a [`tf2_ros/static_transform_publisher`](http://wiki.ros.org/tf2_ros) alongside the *message_tf_frame_transformer* node. This way you can transform a topic to a new coordinate frame with a single command.
 
 ```bash
 # ROS 2
- ros2 launch generic_transform generic_transform.launch.ros2.xml \
+ ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.ros2.xml \
   input_topic:=$INPUT_TOPIC \
   output_topic:=$OUTPUT_TOPIC \
   source_frame_id:=$SOURCE_FRAME_ID \
@@ -79,7 +79,7 @@ The provided launch file enables you to directly launch a [`tf2_ros/static_trans
   yaw:=$YAW
 
 # ROS
-roslaunch generic_transform generic_transform.launch \
+roslaunch message_tf_frame_transformer message_tf_frame_transformer.launch \
   input_topic:=$INPUT_TOPIC \
   output_topic:=$OUTPUT_TOPIC \
   source_frame_id:=$SOURCE_FRAME_ID \
@@ -90,7 +90,7 @@ roslaunch generic_transform generic_transform.launch \
 
 ## Supported Message Types
 
-The *generic_transform* package is able to support any ROS message type that integrates with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Currently, the following message types are explicitly supported.
+The *message_tf_frame_transformer* package is able to support any ROS message type that integrates with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Currently, the following message types are explicitly supported.
 
 | ROS | ROS 2 |
 | --- | --- |
@@ -104,9 +104,9 @@ The *generic_transform* package is able to support any ROS message type that int
 
 Through application of preprocessor macros, adding support for a new ROS message type is as easy as adding only two lines of code. Note that the ROS message types have to integrate with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Feel free to open a pull request to add support for more message types!
 
-1. [`message_types.h`](./include/generic_transform/message_types.h) (ROS) / [`message_types.ros2.hpp`](./include/generic_transform/message_types.ros2.hpp) (ROS 2)
+1. [`message_types.h`](./include/message_tf_frame_transformer/message_types.h) (ROS) / [`message_types.ros2.hpp`](./include/message_tf_frame_transformer/message_types.ros2.hpp) (ROS 2)
    - include required message headers
-1. [`message_types.macro`](./include/generic_transform/message_types.h) (ROS) / [`message_types.ros2.macro`](./include/generic_transform/message_types.ros2.hpp) (ROS 2)
+1. [`message_types.macro`](./include/message_tf_frame_transformer/message_types.h) (ROS) / [`message_types.ros2.macro`](./include/message_tf_frame_transformer/message_types.ros2.hpp) (ROS 2)
    - define information about the new message type by calling the `MESSAGE_TYPE` macro
       - `TYPE`: ROS message type (e.g. `geometry_msgs::msg::PointStamped`)
       - `NAME`: *(ROS 2 only)* ROS message type name (e.g. `geometry_msgs/msg/PointStamped`)
@@ -118,15 +118,15 @@ Through application of preprocessor macros, adding support for a new ROS message
 
 | Package | Node | Description |
 | --- | --- | --- |
-| `generic_transform` | `generic_transform` | transform arbitrary ROS messages to a different coordinate frame |
+| `message_tf_frame_transformer` | `message_tf_frame_transformer` | transform arbitrary ROS messages to a different coordinate frame |
 
 ##### ROS
 
 | Package | Node | Nodelet | Description |
 | --- | --- | --- | --- |
-| `generic_transform` | `generic_transform` | `GenericTransform` | transform arbitrary ROS messages to a different coordinate frame |
+| `message_tf_frame_transformer` | `message_tf_frame_transformer` | `MessageTfFrameTransformer` | transform arbitrary ROS messages to a different coordinate frame |
 
-### generic_transform/generic_transform
+### message_tf_frame_transformer/message_tf_frame_transformer
 
 #### Subscribed Topics
 

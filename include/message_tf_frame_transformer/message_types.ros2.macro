@@ -8,7 +8,7 @@ Example:
 #define MESSAGE_TYPE(TYPE, NAME)                                               \
   std::cout << "The ROS message type " << #TYPE << " is supported. ";          \
   std::cout << std::endl;
-#include "generic_transform/message_types.ros2.macro"
+#include "message_tf_frame_transformer/message_types.ros2.macro"
 #undef MESSAGE_TYPE
 
 ============================================================================= */

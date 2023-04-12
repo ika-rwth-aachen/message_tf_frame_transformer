@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
-project(generic_transform)
+project(message_tf_frame_transformer)
 
 find_package(ros_environment REQUIRED QUIET)
 set(ROS_VERSION $ENV{ROS_VERSION})
@@ -23,7 +23,7 @@ if(${ROS_VERSION} EQUAL 2)
   find_package(tf2_ros REQUIRED)
   find_package(tf2_sensor_msgs REQUIRED)
 
-  add_executable(${PROJECT_NAME} src/GenericTransform.ros2.cpp)
+  add_executable(${PROJECT_NAME} src/MessageTfFrameTransformer.ros2.cpp)
 
   target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -196,7 +196,7 @@ elseif(${ROS_VERSION} EQUAL 1)
 
   ## Declare a C++ library
   add_library(${PROJECT_NAME}
-    src/GenericTransform.cpp
+    src/MessageTfFrameTransformer.cpp
   )
 
   ## Add cmake target dependencies of the library
@@ -207,7 +207,7 @@ elseif(${ROS_VERSION} EQUAL 1)
   ## Declare a C++ executable
   ## With catkin_make all packages are built within a single CMake context
   ## The recommended prefix ensures that target names across packages don't collide
-  add_executable(${PROJECT_NAME}_node src/GenericTransform.node.cpp)
+  add_executable(${PROJECT_NAME}_node src/MessageTfFrameTransformer.node.cpp)
 
   ## Rename C++ executable without node postfix
   set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME ${PROJECT_NAME} PREFIX "")

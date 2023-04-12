@@ -25,26 +25,26 @@ SOFTWARE.
 */
 
 
-#include <generic_transform/GenericTransform.h>
-#include <generic_transform/message_types.h>
+#include <message_tf_frame_transformer/MessageTfFrameTransformer.h>
+#include <message_tf_frame_transformer/message_types.h>
 #include <pluginlib/class_list_macros.h>
 #include <ros/message_traits.h>
 
 
-PLUGINLIB_EXPORT_CLASS(generic_transform::GenericTransform, nodelet::Nodelet)
+PLUGINLIB_EXPORT_CLASS(message_tf_frame_transformer::MessageTfFrameTransformer, nodelet::Nodelet)
 
 
-namespace generic_transform {
+namespace message_tf_frame_transformer {
 
 
-const std::string GenericTransform::kInputTopic = "input";
+const std::string MessageTfFrameTransformer::kInputTopic = "input";
 
-const std::string GenericTransform::kOutputTopic = "transformed";
+const std::string MessageTfFrameTransformer::kOutputTopic = "transformed";
 
-const std::string GenericTransform::kFrameIdParam = "frame_id";
+const std::string MessageTfFrameTransformer::kFrameIdParam = "frame_id";
 
 
-void GenericTransform::onInit() {
+void MessageTfFrameTransformer::onInit() {
 
   node_handle_ = this->getMTNodeHandle();
   private_node_handle_ = this->getMTPrivateNodeHandle();
@@ -54,7 +54,7 @@ void GenericTransform::onInit() {
 }
 
 
-void GenericTransform::loadParameters() {
+void MessageTfFrameTransformer::loadParameters() {
 
   bool found = private_node_handle_.getParam(kFrameIdParam, frame_id_);
   if (!found) {
@@ -68,17 +68,17 @@ void GenericTransform::loadParameters() {
 }
 
 
-void GenericTransform::setup() {
+void MessageTfFrameTransformer::setup() {
 
   // listen to tf
   tf_listener_ = std::make_shared<tf2_ros::TransformListener>(tf_buffer_);
 
   // setup subscriber to detect message type
-  subscriber_ = private_node_handle_.subscribe(kInputTopic, 10, &GenericTransform::detectMessageType, this);
+  subscriber_ = private_node_handle_.subscribe(kInputTopic, 10, &MessageTfFrameTransformer::detectMessageType, this);
 }
 
 
-void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstPtr& generic_msg) {
+void MessageTfFrameTransformer::detectMessageType(const topic_tools::ShapeShifter::ConstPtr& generic_msg) {
 
   const std::string msg_type = generic_msg->getDataType();
   const std::string& msg_type_md5 = generic_msg->getMD5Sum();
@@ -101,12 +101,12 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
     subscriber_ = private_node_handle_.subscribe(                              \
       kInputTopic,                                                             \
       10,                                                                      \
-      &GenericTransform::transform<TYPE>,                                      \
+      &MessageTfFrameTransformer::transform<TYPE>,                                      \
       this                                                                     \
     );                                                                         \
                                                                                \
   }
-#include "generic_transform/message_types.macro"
+#include "message_tf_frame_transformer/message_types.macro"
 #undef MESSAGE_TYPE
   else {
     NODELET_ERROR("Transforming message type '%s' is not supported",
@@ -116,4 +116,4 @@ void GenericTransform::detectMessageType(const topic_tools::ShapeShifter::ConstP
 }
 
 
-}  // namespace generic_transform
+}  // namespace message_tf_frame_transformer

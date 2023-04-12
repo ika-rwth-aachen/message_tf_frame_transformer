@@ -13,7 +13,7 @@
 
   <node pkg="tf2_ros" exec="static_transform_publisher" name="static_transform_publisher" args="--x $(var x) --y $(var y) --z $(var z) --roll $(var roll) --pitch $(var pitch) --yaw $(var yaw) --frame-id $(var source_frame_id) --child-frame-id $(var target_frame_id)" output="screen" />
 
-  <node pkg="generic_transform" exec="generic_transform" name="generic_transform" output="screen">
+  <node pkg="message_tf_frame_transformer" exec="message_tf_frame_transformer" name="message_tf_frame_transformer" output="screen">
     <remap from="~/input" to="$(var input_topic)" />
     <remap from="~/transformed" to="$(var output_topic)" />
     <param name="frame_id" value="$(var target_frame_id)" />

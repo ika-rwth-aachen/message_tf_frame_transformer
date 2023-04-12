@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
 
-  <name>generic_transform</name>
+  <name>message_tf_frame_transformer</name>
   <version>1.0.0</version>
   <description>Transforms messages of arbitrary type to a different frame using tf2::doTransform</description>
 
