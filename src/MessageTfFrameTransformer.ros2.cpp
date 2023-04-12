@@ -27,37 +27,47 @@ SOFTWARE.
 
 #include <regex>
 
-#include <generic_transform/GenericTransform.ros2.hpp>
-#include <generic_transform/message_types.ros2.hpp>
+#include <message_tf_frame_transformer/MessageTfFrameTransformer.ros2.hpp>
+#include <message_tf_frame_transformer/message_types.ros2.hpp>
 
 
-namespace generic_transform {
+namespace message_tf_frame_transformer {
 
 
-const std::string GenericTransform::kInputTopic = "~/input";
+const std::string MessageTfFrameTransformer::kInputTopic = "~/input";
 
-const std::string GenericTransform::kOutputTopic = "~/transformed";
+const std::string MessageTfFrameTransformer::kOutputTopic = "~/transformed";
 
-const std::string GenericTransform::kFrameIdParam = "frame_id";
+const std::string MessageTfFrameTransformer::kSourceFrameIdParam = "source_frame_id";
+
+const std::string MessageTfFrameTransformer::kTargetFrameIdParam = "target_frame_id";
 
 
-GenericTransform::GenericTransform() : Node("generic_transform") {
+MessageTfFrameTransformer::MessageTfFrameTransformer() : Node("message_tf_frame_transformer") {
 
   loadParameters();
   setup();
 }
 
 
-void GenericTransform::loadParameters() {
+void MessageTfFrameTransformer::loadParameters() {
 
-  rcl_interfaces::msg::ParameterDescriptor param_desc;
-  param_desc.description = "Target frame ID to transform to";
-  this->declare_parameter(kFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, param_desc);
+  rcl_interfaces::msg::ParameterDescriptor source_frame_id_param_desc;
+  source_frame_id_param_desc.description = "Source frame ID to transform from (optional; if message has no std_msgs/Header)";
+  this->declare_parameter(kSourceFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, source_frame_id_param_desc);
 
   try {
-    frame_id_ = this->get_parameter(kFrameIdParam).as_string();
+    source_frame_id_ = this->get_parameter(kSourceFrameIdParam).as_string();
+  } catch (rclcpp::exceptions::ParameterUninitializedException&) {}
+
+  rcl_interfaces::msg::ParameterDescriptor target_frame_id_param_desc;
+  target_frame_id_param_desc.description = "Target frame ID to transform to";
+  this->declare_parameter(kTargetFrameIdParam, rclcpp::ParameterType::PARAMETER_STRING, target_frame_id_param_desc);
+
+  try {
+    target_frame_id_ = this->get_parameter(kTargetFrameIdParam).as_string();
   } catch (rclcpp::exceptions::ParameterUninitializedException&) {
-    RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kFrameIdParam.c_str());
+    RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kTargetFrameIdParam.c_str());
     exit(EXIT_FAILURE);
   }
 
@@ -65,13 +75,13 @@ void GenericTransform::loadParameters() {
     this->get_logger(),
     "Transforming data on topic '%s' to frame '%s' published on topic '%s'",
     this->get_node_topics_interface()->resolve_topic_name(kInputTopic).c_str(),
-    frame_id_.c_str(),
+    target_frame_id_.c_str(),
     this->get_node_topics_interface()->resolve_topic_name(kOutputTopic).c_str()
   );
 }
 
 
-void GenericTransform::setup() {
+void MessageTfFrameTransformer::setup() {
 
   // listen to tf
   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
@@ -80,11 +90,11 @@ void GenericTransform::setup() {
   // setup timer to detect subscription type and then subscribe
   detect_message_type_timer_ =
     create_wall_timer(std::chrono::duration<double>(0.001),
-                      std::bind(&GenericTransform::detectMessageType, this));
+                      std::bind(&MessageTfFrameTransformer::detectMessageType, this));
 }
 
 
-void GenericTransform::detectMessageType() {
+void MessageTfFrameTransformer::detectMessageType() {
 
   // check if topic to subscribe exists
   std::string resolved_input_topic = this->get_node_topics_interface()->resolve_topic_name(kInputTopic);
@@ -101,7 +111,7 @@ void GenericTransform::detectMessageType() {
     else if (msg_type_ == #NAME) {                                             \
       publisher_ = this->create_publisher<TYPE>(kOutputTopic, 10);             \
     }
-#include "generic_transform/message_types.ros2.macro"
+#include "message_tf_frame_transformer/message_types.ros2.macro"
 #undef MESSAGE_TYPE
     else {
       RCLCPP_ERROR_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
@@ -116,7 +126,7 @@ void GenericTransform::detectMessageType() {
       kInputTopic,
       msg_type_,
       10,
-      std::bind(&GenericTransform::transformGeneric, this, std::placeholders::_1)
+      std::bind(&MessageTfFrameTransformer::transformGeneric, this, std::placeholders::_1)
     );
 
     RCLCPP_WARN(this->get_logger(),
@@ -128,7 +138,7 @@ void GenericTransform::detectMessageType() {
 }
 
 
-void GenericTransform::transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
+void MessageTfFrameTransformer::transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
 
   if (false) {}
 #define MESSAGE_TYPE(TYPE, NAME)                                               \
@@ -142,18 +152,18 @@ void GenericTransform::transformGeneric(const std::shared_ptr<rclcpp::Serialized
     /* pass message to transform callback */                                   \
     this->transform<TYPE>(msg);                                                \
   }
-#include "generic_transform/message_types.ros2.macro"
+#include "message_tf_frame_transformer/message_types.ros2.macro"
 #undef MESSAGE_TYPE
 }
 
 
-}  // namespace generic_transform
+}  // namespace message_tf_frame_transformer
 
 
 int main(int argc, char *argv[]) {
 
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<generic_transform::GenericTransform>());
+  rclcpp::spin(std::make_shared<message_tf_frame_transformer::MessageTfFrameTransformer>());
   rclcpp::shutdown();
 
   return 0;

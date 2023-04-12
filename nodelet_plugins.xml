@@ -1,7 +1,7 @@
-<library path="lib/libgeneric_transform">
-  <class name="generic_transform/GenericTransform" type="generic_transform::GenericTransform" base_class_type="nodelet::Nodelet">
+<library path="lib/libmessage_tf_frame_transformer">
+  <class name="message_tf_frame_transformer/MessageTfFrameTransformer" type="message_tf_frame_transformer::MessageTfFrameTransformer" base_class_type="nodelet::Nodelet">
     <description>
-      generic_transform nodelet
+      message_tf_frame_transformer nodelet
     </description>
   </class>
 </library>

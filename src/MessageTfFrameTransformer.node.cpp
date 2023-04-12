@@ -28,17 +28,17 @@ SOFTWARE.
 #include <nodelet/loader.h>
 #include <ros/ros.h>
 
-#include <generic_transform/GenericTransform.h>
+#include <message_tf_frame_transformer/MessageTfFrameTransformer.h>
 
 
 int main(int argc, char** argv) {
 
-  ros::init(argc, argv, "generic_transform");
+  ros::init(argc, argv, "message_tf_frame_transformer");
   nodelet::Loader nodelet;
   nodelet::M_string remap(ros::names::getRemappings());
   nodelet::V_string nargv;
   std::string nodelet_name = ros::this_node::getName();
-  nodelet.load(nodelet_name, "generic_transform/GenericTransform", remap, nargv);
+  nodelet.load(nodelet_name, "message_tf_frame_transformer/MessageTfFrameTransformer", remap, nargv);
   ros::spin();
   return 0;
 }
