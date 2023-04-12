@@ -71,12 +71,12 @@ tracks:
     devel_branch: main
     last_release: v1.0.0
     last_version: 1.0.0
-    name: generic_transform
+    name: message_tf_frame_transformer
     patches: null
     release_inc: '1'
-    release_repo_url: git@github.com:ika-rwth-aachen/generic_transform-release.git
+    release_repo_url: git@github.com:ika-rwth-aachen/message_tf_frame_transformer-release.git
     release_tag: v:{version}
     ros_distro: rolling
     vcs_type: git
-    vcs_uri: https://github.com/ika-rwth-aachen/generic_transform.git
+    vcs_uri: https://github.com/ika-rwth-aachen/message_tf_frame_transformer.git
     version: :{auto}
