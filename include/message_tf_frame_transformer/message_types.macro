@@ -15,6 +15,9 @@ Example:
 
 MESSAGE_TYPE(geometry_msgs::PointStamped)
 MESSAGE_TYPE(geometry_msgs::PoseStamped)
+MESSAGE_TYPE(geometry_msgs::PoseWithCovarianceStamped)
+MESSAGE_TYPE(geometry_msgs::QuaternionStamped)
+MESSAGE_TYPE(geometry_msgs::TransformStamped)
 MESSAGE_TYPE(geometry_msgs::Vector3Stamped)
 MESSAGE_TYPE(geometry_msgs::WrenchStamped)
 
