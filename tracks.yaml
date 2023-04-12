@@ -46,7 +46,7 @@ tracks:
     last_version: 1.0.0
     name: message_tf_frame_transformer
     patches: null
-    release_inc: '1'
+    release_inc: '2'
     release_repo_url: git@github.com:ika-rwth-aachen/message_tf_frame_transformer-release.git
     release_tag: v:{version}
     ros_distro: noetic
