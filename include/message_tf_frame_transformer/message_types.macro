@@ -1,0 +1,31 @@
+/* =============================================================================
+The lines below represent calls to a macro named MESSAGE_TYPE.
+Wherever needed, this macro may be defined and called for all supported
+message types by including this file.
+
+Example:
+
+#define MESSAGE_TYPE(TYPE)                                                     \
+  std::cout << "The ROS message type " << #TYPE << " is supported. ";          \
+  std::cout << std::endl;
+#include "message_tf_frame_transformer/message_types.macro"
+#undef MESSAGE_TYPE
+
+============================================================================= */
+
+MESSAGE_TYPE(geometry_msgs::Point)
+MESSAGE_TYPE(geometry_msgs::PointStamped)
+MESSAGE_TYPE(geometry_msgs::Pose)
+MESSAGE_TYPE(geometry_msgs::PoseStamped)
+MESSAGE_TYPE(geometry_msgs::PoseWithCovariance)
+MESSAGE_TYPE(geometry_msgs::PoseWithCovarianceStamped)
+MESSAGE_TYPE(geometry_msgs::Quaternion)
+MESSAGE_TYPE(geometry_msgs::QuaternionStamped)
+MESSAGE_TYPE(geometry_msgs::Transform)
+MESSAGE_TYPE(geometry_msgs::TransformStamped)
+MESSAGE_TYPE(geometry_msgs::Vector3)
+MESSAGE_TYPE(geometry_msgs::Vector3Stamped)
+MESSAGE_TYPE(geometry_msgs::Wrench)
+MESSAGE_TYPE(geometry_msgs::WrenchStamped)
+
+MESSAGE_TYPE(sensor_msgs::PointCloud2)

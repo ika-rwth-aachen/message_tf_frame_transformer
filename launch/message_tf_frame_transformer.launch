@@ -1,0 +1,18 @@
+<launch>
+
+  <arg name="input_topic" default="~input" />
+  <arg name="output_topic" default="~transformed" />
+  <arg name="source_frame_id" />
+  <arg name="target_frame_id" />
+  <arg name="xyzrpy" default="0 0 0 0 0 0" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="$(arg xyzrpy) $(arg source_frame_id) $(arg target_frame_id)" output="screen" />
+
+  <node pkg="nodelet" type="nodelet" name="$(anon message_tf_frame_transformer)" args="standalone message_tf_frame_transformer/MessageTfFrameTransformer" output="screen">
+    <remap from="~input" to="$(arg input_topic)" />
+    <remap from="~transformed" to="$(arg output_topic)" />
+    <param name="source_frame_id" value="$(arg source_frame_id)" />
+    <param name="target_frame_id" value="$(arg target_frame_id)" />
+  </node>
+
+</launch>
