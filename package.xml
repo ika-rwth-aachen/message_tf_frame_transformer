@@ -2,7 +2,7 @@
 <package format="3">
 
   <name>message_tf_frame_transformer</name>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <description>Transforms messages of arbitrary type to a different frame using tf2::doTransform</description>
 
   <maintainer email="lennart.reiher@rwth-aachen.de">Lennart Reiher</maintainer>
