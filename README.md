@@ -3,9 +3,9 @@
 <p align="center">
   <img src="https://img.shields.io/github/v/release/ika-rwth-aachen/message_tf_frame_transformer"/>
   <img src="https://img.shields.io/github/license/ika-rwth-aachen/message_tf_frame_transformer"/>
-  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml/badge.svg"/></a>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml/badge.svg"/></a>
   <img src="https://img.shields.io/badge/ROS-noetic-blueviolet"/>
-  <img src="https://img.shields.io/badge/ROS 2-humble|rolling-blueviolet"/>
+  <img src="https://img.shields.io/badge/ROS 2-humble|iron|rolling-blueviolet"/>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/message_tf_frame_transformer?style=social"/></a>
 </p>
 
@@ -19,8 +19,6 @@ The *message_tf_frame_transformer* package provides a ROS / ROS 2 node(let) to t
 
 
 ## Installation
-
-> :warning: At the time of writing, the ROS package has not yet been released to the public package manager repositories yet. In case the installation fails, you have to install the package from source for now.
 
 The *message_tf_frame_transformer* package is released as an official ROS / ROS 2 package and can easily be installed via a package manager.
 
