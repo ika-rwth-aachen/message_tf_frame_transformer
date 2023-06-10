@@ -3,15 +3,17 @@
 <p align="center">
   <img src="https://img.shields.io/github/v/release/ika-rwth-aachen/message_tf_frame_transformer"/>
   <img src="https://img.shields.io/github/license/ika-rwth-aachen/message_tf_frame_transformer"/>
-  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/build.yml/badge.svg"/></a>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml/badge.svg"/></a>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml/badge.svg"/></a>
   <img src="https://img.shields.io/badge/ROS-noetic-blueviolet"/>
-  <img src="https://img.shields.io/badge/ROS 2-humble|rolling-blueviolet"/>
+  <img src="https://img.shields.io/badge/ROS 2-humble|iron|rolling-blueviolet"/>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/message_tf_frame_transformer?style=social"/></a>
 </p>
 
 The *message_tf_frame_transformer* package provides a ROS / ROS 2 node(let) to transform ROS messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *message_tf_frame_transformer* node and transform arbitrary ROS message to a target coordinate frame.
 
 - [Installation](#installation)
+  - [docker-ros](#docker-ros)
 - [Usage](#usage)
 - [Supported Message Types](#supported-message-types)
 - [Nodes/Nodelets](#nodesnodelets)
@@ -19,8 +21,6 @@ The *message_tf_frame_transformer* package provides a ROS / ROS 2 node(let) to t
 
 
 ## Installation
-
-> :warning: At the time of writing, the ROS package has not yet been released to the public package manager repositories yet. In case the installation fails, you have to install the package from source for now.
 
 The *message_tf_frame_transformer* package is released as an official ROS / ROS 2 package and can easily be installed via a package manager.
 
@@ -41,6 +41,18 @@ colcon build --packages-up-to message_tf_frame_transformer --cmake-args -DCMAKE_
 # ROS
 # workspace$
 catkin build -DCMAKE_BUILD_TYPE=Release message_tf_frame_transformer
+```
+
+### docker-ros
+
+*message_tf_frame_transformer* is also available as a Docker image, containerized through [*docker-ros*](https://github.com/ika-rwth-aachen/docker-ros).
+
+```bash
+# ROS
+docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:ros
+
+# ROS 2
+docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:ros2
 ```
 
 
@@ -94,23 +106,23 @@ roslaunch message_tf_frame_transformer message_tf_frame_transformer.launch \
 
 The *message_tf_frame_transformer* package is able to support any ROS message type that integrates with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Currently, the following message types are explicitly supported.
 
-| ROS | ROS 2 |
-| --- | --- |
-| [`geometry_msgs/Point`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Point.html) | [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |
-| [`geometry_msgs/PointStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PointStamped.html) | [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |
-| [`geometry_msgs/Pose`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html) | [`geometry_msgs/msg/Pose`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Pose.html) |
-| [`geometry_msgs/PoseStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html) | [`geometry_msgs/msg/PoseStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html) |
-| [`geometry_msgs/PoseWithCovariance`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovariance.html) | [`geometry_msgs/msg/PoseWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovariance.html) |
-| [`geometry_msgs/PoseWithCovarianceStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html) | [`geometry_msgs/msg/PoseWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) |
-| [`geometry_msgs/Quaternion`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Quaternion.html) | [`geometry_msgs/msg/Quaternion`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Quaternion.html) |
-| [`geometry_msgs/QuaternionStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/QuaternionStamped.html) | [`geometry_msgs/msg/QuaternionStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/QuaternionStamped.html) |
-| [`geometry_msgs/Transform`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Transform.html) | [`geometry_msgs/msg/Transform`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Transform.html) |
-| [`geometry_msgs/TransformStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/TransformStamped.html) | [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |
-| [`geometry_msgs/Vector3`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3.html) | [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |
-| [`geometry_msgs/Vector3Stamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3Stamped.html) | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |
-| [`geometry_msgs/Wrench`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Wrench.html) | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |
-| [`geometry_msgs/WrenchStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/WrenchStamped.html) | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |
-| [`sensor_msgs/PointCloud2`](http://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) |
+| ROS | ROS 2 | Remarks |
+| --- | --- | --- |
+| [`geometry_msgs/Point`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Point.html) | [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |  |
+| [`geometry_msgs/PointStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PointStamped.html) | [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |  |
+| [`geometry_msgs/Pose`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html) | [`geometry_msgs/msg/Pose`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Pose.html) |  |
+| [`geometry_msgs/PoseStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html) | [`geometry_msgs/msg/PoseStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html) |  |
+| [`geometry_msgs/PoseWithCovariance`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovariance.html) | [`geometry_msgs/msg/PoseWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovariance.html) |  |
+| [`geometry_msgs/PoseWithCovarianceStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html) | [`geometry_msgs/msg/PoseWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) |  |
+| [`geometry_msgs/Quaternion`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Quaternion.html) | [`geometry_msgs/msg/Quaternion`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Quaternion.html) |  |
+| [`geometry_msgs/QuaternionStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/QuaternionStamped.html) | [`geometry_msgs/msg/QuaternionStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/QuaternionStamped.html) |  |
+| [`geometry_msgs/Transform`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Transform.html) | [`geometry_msgs/msg/Transform`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Transform.html) |  |
+| [`geometry_msgs/TransformStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/TransformStamped.html) | [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |  |
+| [`geometry_msgs/Vector3`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3.html) | [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |  |
+| [`geometry_msgs/Vector3Stamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Vector3Stamped.html) | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
+| [`geometry_msgs/Wrench`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Wrench.html) | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
+| [`geometry_msgs/WrenchStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/WrenchStamped.html) | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
+| [`sensor_msgs/PointCloud2`](http://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) | Only the first three point cloud channels (usually `xyz`) are transformed. |
 
 ### Adding Support for a New Message Type
 
