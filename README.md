@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/github/v/release/ika-rwth-aachen/message_tf_frame_transformer"/>
   <img src="https://img.shields.io/github/license/ika-rwth-aachen/message_tf_frame_transformer"/>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml/badge.svg"/></a>
+  <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml/badge.svg"/></a>
   <img src="https://img.shields.io/badge/ROS-noetic-blueviolet"/>
   <img src="https://img.shields.io/badge/ROS 2-humble|iron|rolling-blueviolet"/>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/message_tf_frame_transformer?style=social"/></a>
@@ -12,6 +13,7 @@
 The *message_tf_frame_transformer* package provides a ROS / ROS 2 node(let) to transform ROS messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *message_tf_frame_transformer* node and transform arbitrary ROS message to a target coordinate frame.
 
 - [Installation](#installation)
+  - [docker-ros](#docker-ros)
 - [Usage](#usage)
 - [Supported Message Types](#supported-message-types)
 - [Nodes/Nodelets](#nodesnodelets)
@@ -39,6 +41,18 @@ colcon build --packages-up-to message_tf_frame_transformer --cmake-args -DCMAKE_
 # ROS
 # workspace$
 catkin build -DCMAKE_BUILD_TYPE=Release message_tf_frame_transformer
+```
+
+### docker-ros
+
+*message_tf_frame_transformer* is also available as a Docker image, containerized through [*docker-ros*](https://github.com/ika-rwth-aachen/docker-ros).
+
+```bash
+# ROS
+docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:ros
+
+# ROS 2
+docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:ros2
 ```
 
 
