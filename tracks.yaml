@@ -106,5 +106,4 @@ tracks:
     ros_distro: rolling
     vcs_type: git
     vcs_uri: https://github.com/ika-rwth-aachen/message_tf_frame_transformer.git
-    version: 1.1.0
-    version_saved: :{auto}
+    version: :{auto}
