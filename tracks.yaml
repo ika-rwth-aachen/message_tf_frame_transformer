@@ -42,8 +42,8 @@ tracks:
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc} --os-name rhel
     devel_branch: main
-    last_release: v1.1.0
-    last_version: 1.1.0
+    last_release: v1.1.1
+    last_version: 1.1.1
     name: message_tf_frame_transformer
     patches: null
     release_inc: '1'
