@@ -20,7 +20,7 @@ tracks:
     name: message_tf_frame_transformer
     patches: null
     release_inc: '1'
-    release_repo_url: null
+    release_repo_url: git@github.com:ros2-gbp/message_tf_frame_transformer-release.git
     release_tag: v:{version}
     ros_distro: humble
     vcs_type: git
