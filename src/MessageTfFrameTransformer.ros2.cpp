@@ -138,7 +138,7 @@ void MessageTfFrameTransformer::detectMessageType() {
 }
 
 
-void MessageTfFrameTransformer::transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg) {
+void MessageTfFrameTransformer::transformGeneric(const std::shared_ptr<const rclcpp::SerializedMessage>& serialized_msg) {
 
   if (false) {}
 #define MESSAGE_TYPE(TYPE, NAME)                                               \
