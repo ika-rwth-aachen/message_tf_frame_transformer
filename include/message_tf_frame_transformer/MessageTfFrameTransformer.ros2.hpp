@@ -66,7 +66,7 @@ class MessageTfFrameTransformer : public rclcpp::Node {
 
   void detectMessageType();
 
-  void transformGeneric(const std::shared_ptr<rclcpp::SerializedMessage>& serialized_msg);
+  void transformGeneric(const std::shared_ptr<const rclcpp::SerializedMessage>& serialized_msg);
 
   template <typename T>
   void transform(const T& msg);
@@ -98,7 +98,7 @@ class MessageTfFrameTransformer : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr detect_message_type_timer_;
 
   rclcpp::GenericSubscription::SharedPtr subscriber_;
-  
+
   rclcpp::PublisherBase::SharedPtr publisher_;
 
   std::string msg_type_;
