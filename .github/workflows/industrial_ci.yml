@@ -1,4 +1,4 @@
-name: Build
+name: industrial_ci
 
 on: push
 
@@ -11,6 +11,7 @@ jobs:
         ROS_DISTRO:
           - noetic
           - humble
+          - iron
           - rolling
         ROS_REPO:
           - testing
