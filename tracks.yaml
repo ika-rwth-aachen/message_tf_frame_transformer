@@ -73,7 +73,7 @@ tracks:
     last_version: 1.1.1
     name: message_tf_frame_transformer
     patches: null
-    release_inc: '1'
+    release_inc: '2'
     release_repo_url: null
     release_tag: v:{version}
     ros_distro: jazzy
