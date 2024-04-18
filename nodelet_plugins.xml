@@ -1,0 +1,7 @@
+<library path="lib/libmessage_tf_frame_transformer">
+  <class name="message_tf_frame_transformer/MessageTfFrameTransformer" type="message_tf_frame_transformer::MessageTfFrameTransformer" base_class_type="nodelet::Nodelet">
+    <description>
+      message_tf_frame_transformer nodelet
+    </description>
+  </class>
+</library>

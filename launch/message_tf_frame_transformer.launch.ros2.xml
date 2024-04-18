@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="input_topic" default="~/input" />
+  <arg name="output_topic" default="~/transformed" />
+  <arg name="source_frame_id" />
+  <arg name="target_frame_id" />
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.0" />
+  <arg name="roll" default="0.0" />
+  <arg name="pitch" default="0.0" />
+  <arg name="yaw" default="0.0" />
+
+  <node pkg="tf2_ros" exec="static_transform_publisher" name="static_transform_publisher" args="--x $(var x) --y $(var y) --z $(var z) --roll $(var roll) --pitch $(var pitch) --yaw $(var yaw) --frame-id $(var source_frame_id) --child-frame-id $(var target_frame_id)" output="screen" />
+
+  <node pkg="message_tf_frame_transformer" exec="message_tf_frame_transformer" name="message_tf_frame_transformer" output="screen">
+    <remap from="~/input" to="$(var input_topic)" />
+    <remap from="~/transformed" to="$(var output_topic)" />
+    <param name="source_frame_id" value="$(var source_frame_id)" />
+    <param name="target_frame_id" value="$(var target_frame_id)" />
+  </node>
+
+</launch>
