@@ -1,0 +1,12 @@
+Source: ros-jazzy-message-tf-frame-transformer
+Section: misc
+Priority: optional
+Maintainer: Lennart Reiher <lennart.reiher@rwth-aachen.de>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-geometry-msgs, ros-jazzy-rclcpp, ros-jazzy-ros-environment, ros-jazzy-sensor-msgs, ros-jazzy-tf2, ros-jazzy-tf2-geometry-msgs, ros-jazzy-tf2-ros, ros-jazzy-tf2-sensor-msgs, ros-jazzy-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-message-tf-frame-transformer
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-geometry-msgs, ros-jazzy-rclcpp, ros-jazzy-ros-environment, ros-jazzy-sensor-msgs, ros-jazzy-tf2, ros-jazzy-tf2-geometry-msgs, ros-jazzy-tf2-ros, ros-jazzy-tf2-sensor-msgs, ros-jazzy-ros-workspace
+Description: Transforms messages of arbitrary type to a different frame using tf2::doTransform
