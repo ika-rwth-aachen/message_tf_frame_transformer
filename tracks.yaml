@@ -74,7 +74,7 @@ tracks:
     name: message_tf_frame_transformer
     patches: null
     release_inc: '2'
-    release_repo_url: null
+    release_repo_url: git@github.com:ika-rwth-aachen/message_tf_frame_transformer.git
     release_tag: v:{version}
     ros_distro: jazzy
     vcs_type: git
