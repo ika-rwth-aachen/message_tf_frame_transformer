@@ -1,3 +1,26 @@
+## message_tf_frame_transformer (jazzy) - 1.1.1-3
+
+The packages in the `message_tf_frame_transformer` repository were released into the `jazzy` distro by running `/usr/local/bin/bloom-release --rosdistro jazzy --track jazzy message_tf_frame_transformer --edit` on `Mon, 03 Jun 2024 06:39:21 -0000`
+
+The `message_tf_frame_transformer` package was released.
+
+Version of package(s) in repository `message_tf_frame_transformer`:
+
+- upstream repository: https://github.com/ika-rwth-aachen/message_tf_frame_transformer.git
+- release repository: https://github.com/ros2-gbp/message_tf_frame_transformer-release.git
+- rosdistro version: `1.1.1-2`
+- old version: `1.1.1-2`
+- new version: `1.1.1-3`
+
+Versions of tools used:
+
+- bloom version: `0.12.0`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.24.0`
+- rosdistro version: `0.9.1`
+- vcstools version: `0.1.42`
+
+
 ## message_tf_frame_transformer (humble) - 1.1.1-1
 
 The packages in the `message_tf_frame_transformer` repository were released into the `humble` distro by running `/usr/local/bin/bloom-release --rosdistro humble --track humble --edit message_tf_frame_transformer` on `Mon, 18 Mar 2024 23:39:54 -0000`
