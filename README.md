@@ -6,7 +6,7 @@
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/industrial_ci.yml/badge.svg"/></a>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml"><img src="https://github.com/ika-rwth-aachen/message_tf_frame_transformer/actions/workflows/docker-ros.yml/badge.svg"/></a>
   <img src="https://img.shields.io/badge/ROS-noetic-blueviolet"/>
-  <img src="https://img.shields.io/badge/ROS 2-humble|iron|rolling-blueviolet"/>
+  <img src="https://img.shields.io/badge/ROS 2-humble|iron|jazzy|rolling-blueviolet"/>
   <a href="https://github.com/ika-rwth-aachen/message_tf_frame_transformer"><img src="https://img.shields.io/github/stars/ika-rwth-aachen/message_tf_frame_transformer?style=social"/></a>
 </p>
 
