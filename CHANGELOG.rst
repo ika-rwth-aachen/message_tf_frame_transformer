@@ -2,6 +2,9 @@
 Changelog for package message_tf_frame_transformer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.2 (2024-06-06)
+------------------
+
 1.1.1 (2024-03-19)
 ------------------
 * Merge pull request #3 from clalancette/clalancette/fix-compile-error
