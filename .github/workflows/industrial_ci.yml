@@ -12,7 +12,7 @@ jobs:
           - humble
           - jazzy
           - kilted
-          - rolling
+          # - rolling # perception_msgs_rendering doesn't build on rolling
         ROS_REPO:
           - main
     steps:
