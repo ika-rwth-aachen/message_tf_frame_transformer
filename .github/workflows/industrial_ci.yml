@@ -21,6 +21,4 @@ jobs:
           config: ${{ toJSON(matrix) }}
         env:
           NOT_TEST_BUILD: true
-          UPSTREAM_WORKSPACE: |
-            github:ika-rwth-aachen/perception_interfaces#main,
-            github:ika-rwth-aachen/planning_interfaces#main
+          UPSTREAM_WORKSPACE: ".repos"
