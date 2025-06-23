@@ -95,45 +95,6 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
 | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
 | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
-| [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) | Only the first three point cloud channels (usually `xyz`) are transformed. |
-| [`perception_msgs/msg/Object`](https://github.com/ika-rwth-aachen/perception_interfaces) |  |
-| [`perception_msgs/msg/ObjectList`](https://github.com/ika-rwth-aachen/perception_interfaces) |  |
-| [`perception_msgs/msg/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces) |  |
-| [`trajectory_planning_msgs/msg/Trajectory`](https://github.com/ika-rwth-aachen/planning_interfaces) |  |
-
-### Adding Support for a New Message Type
-
-Through application of preprocessor macros, adding support for a new ROS message type is as easy as adding only two lines of code. Note that the ROS message types have to integrate with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Feel free to open a pull request to add support for more message types!
-
-1. [`message_types.hpp`](./include/message_tf_frame_transformer/message_types.hpp)
-   - include required message headers
-1. [`message_types.macro`](./include/message_tf_frame_transformer/message_types.macro)
-   - define information about the new message type by calling the `MESSAGE_TYPE` macro
-      - `TYPE`: ROS message type (e.g. `geometry_msgs::msg::PointStamped`)
-      - `NAME`: ROS message type name (e.g. `geometry_msgs/msg/PointStamped`)
-
-
-## Nodes
-
-| Package | Node | Description |
-| --- | --- | --- |
-| `message_tf_frame_transformer` | `message_tf_frame_transformer` | transform arbitrary ROS messages to a different coordinate frame |
-| ROS Message | Remarks |
-| --- | --- |
-| [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |  |
-| [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |  |
-| [`geometry_msgs/msg/Pose`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Pose.html) |  |
-| [`geometry_msgs/msg/PoseStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html) |  |
-| [`geometry_msgs/msg/PoseWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovariance.html) |  |
-| [`geometry_msgs/msg/PoseWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) |  |
-| [`geometry_msgs/msg/Quaternion`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Quaternion.html) |  |
-| [`geometry_msgs/msg/QuaternionStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/QuaternionStamped.html) |  |
-| [`geometry_msgs/msg/Transform`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Transform.html) |  |
-| [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |  |
-| [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |  |
-| [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
-| [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
-| [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
 | [`perception_msgs/msg/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/EgoData.msg) |  |
 | [`perception_msgs/msg/Object`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/Object.msg) |  |
 | [`perception_msgs/msg/ObjectList`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectList.msg) |  |
@@ -146,7 +107,6 @@ Through application of preprocessor macros, adding support for a new ROS message
 | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) | Only the first three point cloud channels (usually `xyz`) are transformed. |
 | [`trajectory_planning_msgs/msg/Trajectory`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/trajectory_planning_msgs/msg/Trajectory.msg) |  |
 
-### Adding Support for a New Message Type
 ### Adding Support for a New Message Type
 
 Through application of preprocessor macros, adding support for a new ROS message type is as easy as adding only two lines of code. Note that the ROS message types have to integrate with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Feel free to open a pull request to add support for more message types!
