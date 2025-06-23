@@ -16,12 +16,21 @@ if(${ROS_VERSION} EQUAL 2)
   find_package(ament_cmake REQUIRED)
 
   find_package(geometry_msgs REQUIRED)
+  find_package(perception_msgs REQUIRED)
+  find_package(perception_msgs_utils REQUIRED)
   find_package(rclcpp REQUIRED)
+  find_package(route_planning_msgs REQUIRED)
+  find_package(route_planning_msgs_utils REQUIRED)
   find_package(sensor_msgs REQUIRED)
   find_package(tf2 REQUIRED)
   find_package(tf2_geometry_msgs REQUIRED)
+  find_package(tf2_perception_msgs REQUIRED)
   find_package(tf2_ros REQUIRED)
+  find_package(tf2_route_planning_msgs REQUIRED)
   find_package(tf2_sensor_msgs REQUIRED)
+  find_package(tf2_trajectory_planning_msgs REQUIRED)
+  find_package(trajectory_planning_msgs REQUIRED)
+  find_package(trajectory_planning_msgs_utils REQUIRED)
 
   add_executable(${PROJECT_NAME} src/MessageTfFrameTransformer.ros2.cpp)
 
@@ -31,12 +40,21 @@ if(${ROS_VERSION} EQUAL 2)
 
   ament_target_dependencies(${PROJECT_NAME}
     geometry_msgs
+    perception_msgs
+    perception_msgs_utils
     rclcpp
+    route_planning_msgs
+    route_planning_msgs_utils
     sensor_msgs
     tf2
     tf2_geometry_msgs
+    tf2_perception_msgs
     tf2_ros
+    tf2_route_planning_msgs
     tf2_sensor_msgs
+    tf2_trajectory_planning_msgs
+    trajectory_planning_msgs
+    trajectory_planning_msgs_utils
   )
 
   install(TARGETS
@@ -72,13 +90,22 @@ elseif(${ROS_VERSION} EQUAL 1)
   ## is used, also find other catkin packages
   find_package(catkin REQUIRED COMPONENTS
     geometry_msgs
+    perception_msgs
+    perception_msgs_utils
     nodelet
     roscpp
+    route_planning_msgs
+    route_planning_msgs_utils
     tf2
     tf2_geometry_msgs
+    tf2_perception_msgs
     tf2_ros
+    tf2_route_planning_msgs
     tf2_sensor_msgs
+    tf2_trajectory_planning_msgs
     topic_tools
+    trajectory_planning_msgs
+    trajectory_planning_msgs_utils
   )
 
   ## System dependencies are found with CMake's conventions
@@ -174,12 +201,21 @@ elseif(${ROS_VERSION} EQUAL 1)
     CATKIN_DEPENDS
       geometry_msgs
       nodelet
+      perception_msgs
+      perception_msgs_utils
       roscpp
+      route_planning_msgs
+      route_planning_msgs_utils
       tf2
       tf2_geometry_msgs
+      tf2_perception_msgs
       tf2_ros
+      tf2_route_planning_msgs
       tf2_sensor_msgs
+      tf2_trajectory_planning_msgs
       topic_tools
+      trajectory_planning_msgs
+      trajectory_planning_msgs_utils
     # DEPENDS
   )
 

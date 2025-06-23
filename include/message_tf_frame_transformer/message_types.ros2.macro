@@ -28,4 +28,17 @@ MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stampe
 MESSAGE_TYPE(geometry_msgs::msg::Wrench, geometry_msgs/msg/Wrench)
 MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
 
+MESSAGE_TYPE(perception_msgs::msg::EgoData, perception_msgs/msg/EgoData)
+MESSAGE_TYPE(perception_msgs::msg::Object, perception_msgs/msg/Object)
+MESSAGE_TYPE(perception_msgs::msg::ObjectList, perception_msgs/msg/ObjectList)
+MESSAGE_TYPE(perception_msgs::msg::ObjectState, perception_msgs/msg/ObjectState)
+
+MESSAGE_TYPE(route_planning_msgs::msg::LaneBoundary, route_planning_msgs/msg/LaneBoundary)
+MESSAGE_TYPE(route_planning_msgs::msg::LaneElement, route_planning_msgs/msg/LaneElement)
+MESSAGE_TYPE(route_planning_msgs::msg::RegulatoryElement, route_planning_msgs/msg/RegulatoryElement)
+MESSAGE_TYPE(route_planning_msgs::msg::Route, route_planning_msgs/msg/Route)
+MESSAGE_TYPE(route_planning_msgs::msg::RouteElement, route_planning_msgs/msg/RouteElement)
+
 MESSAGE_TYPE(sensor_msgs::msg::PointCloud2, sensor_msgs/msg/PointCloud2)
+
+MESSAGE_TYPE(trajectory_planning_msgs::msg::Trajectory, trajectory_planning_msgs/msg/Trajectory)
