@@ -21,7 +21,7 @@ jobs:
       - uses: ika-rwth-aachen/docker-ros@v1.0.0
         with:
           image-tag: ros2
-          base-image: rwthika/ros2:latest
+          base-image: rwthika/ros2:jazzy
           rmw-implementation: rmw_zenoh_cpp
           command: ros2 run message_tf_frame_transformer message_tf_frame_transformer
           platform: amd64,arm64
