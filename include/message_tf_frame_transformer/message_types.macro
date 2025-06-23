@@ -5,27 +5,40 @@ message types by including this file.
 
 Example:
 
-#define MESSAGE_TYPE(TYPE)                                                     \
-  std::cout << "The ROS message type " << #TYPE << " is supported. ";          \
+#define MESSAGE_TYPE(TYPE, NAME) \
+  std::cout << "The ROS message type " << #TYPE << " is supported. "; \
   std::cout << std::endl;
 #include "message_tf_frame_transformer/message_types.macro"
 #undef MESSAGE_TYPE
 
 ============================================================================= */
 
-MESSAGE_TYPE(geometry_msgs::Point)
-MESSAGE_TYPE(geometry_msgs::PointStamped)
-MESSAGE_TYPE(geometry_msgs::Pose)
-MESSAGE_TYPE(geometry_msgs::PoseStamped)
-MESSAGE_TYPE(geometry_msgs::PoseWithCovariance)
-MESSAGE_TYPE(geometry_msgs::PoseWithCovarianceStamped)
-MESSAGE_TYPE(geometry_msgs::Quaternion)
-MESSAGE_TYPE(geometry_msgs::QuaternionStamped)
-MESSAGE_TYPE(geometry_msgs::Transform)
-MESSAGE_TYPE(geometry_msgs::TransformStamped)
-MESSAGE_TYPE(geometry_msgs::Vector3)
-MESSAGE_TYPE(geometry_msgs::Vector3Stamped)
-MESSAGE_TYPE(geometry_msgs::Wrench)
-MESSAGE_TYPE(geometry_msgs::WrenchStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Point, geometry_msgs/msg/Point)
+MESSAGE_TYPE(geometry_msgs::msg::PointStamped, geometry_msgs/msg/PointStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Pose, geometry_msgs/msg/Pose)
+MESSAGE_TYPE(geometry_msgs::msg::PoseStamped, geometry_msgs/msg/PoseStamped)
+MESSAGE_TYPE(geometry_msgs::msg::PoseWithCovariance, geometry_msgs/msg/PoseWithCovariance)
+MESSAGE_TYPE(geometry_msgs::msg::PoseWithCovarianceStamped, geometry_msgs/msg/PoseWithCovarianceStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Quaternion, geometry_msgs/msg/Quaternion)
+MESSAGE_TYPE(geometry_msgs::msg::QuaternionStamped, geometry_msgs/msg/QuaternionStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Transform, geometry_msgs/msg/Transform)
+MESSAGE_TYPE(geometry_msgs::msg::TransformStamped, geometry_msgs/msg/TransformStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Vector3, geometry_msgs/msg/Vector3)
+MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
+MESSAGE_TYPE(geometry_msgs::msg::Wrench, geometry_msgs/msg/Wrench)
+MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
 
-MESSAGE_TYPE(sensor_msgs::PointCloud2)
+MESSAGE_TYPE(perception_msgs::msg::EgoData, perception_msgs/msg/EgoData)
+MESSAGE_TYPE(perception_msgs::msg::Object, perception_msgs/msg/Object)
+MESSAGE_TYPE(perception_msgs::msg::ObjectList, perception_msgs/msg/ObjectList)
+MESSAGE_TYPE(perception_msgs::msg::ObjectState, perception_msgs/msg/ObjectState)
+
+MESSAGE_TYPE(route_planning_msgs::msg::LaneBoundary, route_planning_msgs/msg/LaneBoundary)
+MESSAGE_TYPE(route_planning_msgs::msg::LaneElement, route_planning_msgs/msg/LaneElement)
+MESSAGE_TYPE(route_planning_msgs::msg::RegulatoryElement, route_planning_msgs/msg/RegulatoryElement)
+MESSAGE_TYPE(route_planning_msgs::msg::Route, route_planning_msgs/msg/Route)
+MESSAGE_TYPE(route_planning_msgs::msg::RouteElement, route_planning_msgs/msg/RouteElement)
+
+MESSAGE_TYPE(sensor_msgs::msg::PointCloud2, sensor_msgs/msg/PointCloud2)
+
+MESSAGE_TYPE(trajectory_planning_msgs::msg::Trajectory, trajectory_planning_msgs/msg/Trajectory)

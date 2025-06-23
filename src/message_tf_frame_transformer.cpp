@@ -27,8 +27,8 @@ SOFTWARE.
 
 #include <regex>
 
-#include <message_tf_frame_transformer/MessageTfFrameTransformer.ros2.hpp>
-#include <message_tf_frame_transformer/message_types.ros2.hpp>
+#include <message_tf_frame_transformer/MessageTfFrameTransformer.hpp>
+#include <message_tf_frame_transformer/message_types.hpp>
 
 
 namespace message_tf_frame_transformer {
@@ -111,7 +111,7 @@ void MessageTfFrameTransformer::detectMessageType() {
     else if (msg_type_ == #NAME) {                                             \
       publisher_ = this->create_publisher<TYPE>(kOutputTopic, 10);             \
     }
-#include "message_tf_frame_transformer/message_types.ros2.macro"
+#include "message_tf_frame_transformer/message_types.macro"
 #undef MESSAGE_TYPE
     else {
       RCLCPP_ERROR_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
@@ -152,7 +152,7 @@ void MessageTfFrameTransformer::transformGeneric(const std::shared_ptr<const rcl
     /* pass message to transform callback */                                   \
     this->transform<TYPE>(msg);                                                \
   }
-#include "message_tf_frame_transformer/message_types.ros2.macro"
+#include "message_tf_frame_transformer/message_types.macro"
 #undef MESSAGE_TYPE
 }
 

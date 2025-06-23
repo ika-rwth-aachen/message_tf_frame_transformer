@@ -3,26 +3,51 @@ name: docker-ros
 on: push
 
 jobs:
+  ros2-humble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ika-rwth-aachen/docker-ros@main
+        with:
+          platform: amd64
+          target: run
+          base-image: rwthika/ros2:humble
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          image-tag: humble
+          rmw-implementation: rmw_zenoh_cpp
 
-  ros:
+  ros2-jazzy:
     runs-on: ubuntu-latest
     steps:
-      - uses: ika-rwth-aachen/docker-ros@v1.0.0
+      - uses: ika-rwth-aachen/docker-ros@main
         with:
-          image-tag: ros
-          base-image: rwthika/ros:latest
-          command: rosrun message_tf_frame_transformer message_tf_frame_transformer
-          platform: amd64,arm64
+          platform: amd64
           target: run
-  
-  ros2:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ika-rwth-aachen/docker-ros@v1.0.0
-        with:
-          image-tag: ros2
-          base-image: rwthika/ros2:latest
-          command: ros2 run message_tf_frame_transformer message_tf_frame_transformer
-          platform: amd64,arm64
-          target: run
+          base-image: rwthika/ros2:jazzy
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          image-tag: jazzy
           enable-push-as-latest: 'true'
+          rmw-implementation: rmw_zenoh_cpp
+
+  ros2-kilted:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ika-rwth-aachen/docker-ros@main
+        with:
+          platform: amd64
+          target: run
+          base-image: rwthika/ros2:kilted
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          image-tag: kilted
+          rmw-implementation: rmw_zenoh_cpp
+
+  ros2-rolling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ika-rwth-aachen/docker-ros@main
+        with:
+          platform: amd64
+          target: run
+          base-image: rwthika/ros2:rolling
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          image-tag: rolling
+          rmw-implementation: rmw_zenoh_cpp
