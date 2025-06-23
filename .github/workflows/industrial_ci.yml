@@ -12,7 +12,7 @@ jobs:
           - humble
           - jazzy
           - kilted
-          # - rolling # perception_msgs_rendering doesn't build on rolling
+          - rolling
         ROS_REPO:
           - main
     steps:
@@ -22,4 +22,4 @@ jobs:
           config: ${{ toJSON(matrix) }}
         env:
           NOT_TEST_BUILD: true
-          UPSTREAM_WORKSPACE: ".repos"
+          UPSTREAM_WORKSPACE: ".repos -perception_interfaces/perception_msgs_rendering -perception_interfaces/perception_msgs_rviz_plugins -planning_interfaces/route_planning_msgs_rviz_plugins -planning_interfaces/trajectory_planning_msgs_rviz_plugins"
