@@ -13,6 +13,6 @@ jobs:
           base-image: rwthika/ros2:jazzy
           rmw-implementation: rmw_zenoh_cpp
           command: ros2 run message_tf_frame_transformer message_tf_frame_transformer
-          platform: amd64,arm64
+          platform: amd64
           target: run
           enable-push-as-latest: 'true'
