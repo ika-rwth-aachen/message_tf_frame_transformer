@@ -13,8 +13,17 @@ Example:
 
 ============================================================================= */
 
+MESSAGE_TYPE(geometry_msgs::msg::Accel, geometry_msgs/msg/Accel)
+MESSAGE_TYPE(geometry_msgs::msg::AccelStamped, geometry_msgs/msg/AccelStamped)
+MESSAGE_TYPE(geometry_msgs::msg::AccelWithCovariance, geometry_msgs/msg/AccelWithCovariance)
+MESSAGE_TYPE(geometry_msgs::msg::AccelWithCovarianceStamped, geometry_msgs/msg/AccelWithCovarianceStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Inertia, geometry_msgs/msg/Inertia)
+MESSAGE_TYPE(geometry_msgs::msg::InertiaStamped, geometry_msgs/msg/InertiaStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Point, geometry_msgs/msg/Point)
+MESSAGE_TYPE(geometry_msgs::msg::Point32, geometry_msgs/msg/Point32)
 MESSAGE_TYPE(geometry_msgs::msg::PointStamped, geometry_msgs/msg/PointStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Polygon, geometry_msgs/msg/Polygon)
+MESSAGE_TYPE(geometry_msgs::msg::PolygonStamped, geometry_msgs/msg/PolygonStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Pose, geometry_msgs/msg/Pose)
 MESSAGE_TYPE(geometry_msgs::msg::PoseStamped, geometry_msgs/msg/PoseStamped)
 MESSAGE_TYPE(geometry_msgs::msg::PoseWithCovariance, geometry_msgs/msg/PoseWithCovariance)
@@ -23,10 +32,18 @@ MESSAGE_TYPE(geometry_msgs::msg::Quaternion, geometry_msgs/msg/Quaternion)
 MESSAGE_TYPE(geometry_msgs::msg::QuaternionStamped, geometry_msgs/msg/QuaternionStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Transform, geometry_msgs/msg/Transform)
 MESSAGE_TYPE(geometry_msgs::msg::TransformStamped, geometry_msgs/msg/TransformStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Twist, geometry_msgs/msg/Twist)
+MESSAGE_TYPE(geometry_msgs::msg::TwistStamped, geometry_msgs/msg/TwistStamped)
+MESSAGE_TYPE(geometry_msgs::msg::TwistWithCovariance, geometry_msgs/msg/TwistWithCovariance)
+MESSAGE_TYPE(geometry_msgs::msg::TwistWithCovarianceStamped, geometry_msgs/msg/TwistWithCovarianceStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3, geometry_msgs/msg/Vector3)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
+MESSAGE_TYPE(geometry_msgs::msg::VelocityStamped, geometry_msgs/msg/VelocityStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Wrench, geometry_msgs/msg/Wrench)
 MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
+
+MESSAGE_TYPE(nav_msgs::msg::Odometry, nav_msgs/msg/Odometry)
+MESSAGE_TYPE(nav_msgs::msg::Path, nav_msgs/msg/Path)
 
 MESSAGE_TYPE(perception_msgs::msg::EgoData, perception_msgs/msg/EgoData)
 MESSAGE_TYPE(perception_msgs::msg::Object, perception_msgs/msg/Object)
@@ -39,6 +56,8 @@ MESSAGE_TYPE(route_planning_msgs::msg::RegulatoryElement, route_planning_msgs/ms
 MESSAGE_TYPE(route_planning_msgs::msg::Route, route_planning_msgs/msg/Route)
 MESSAGE_TYPE(route_planning_msgs::msg::RouteElement, route_planning_msgs/msg/RouteElement)
 
+MESSAGE_TYPE(sensor_msgs::msg::Imu, sensor_msgs/msg/Imu)
+MESSAGE_TYPE(sensor_msgs::msg::NavSatFix, sensor_msgs/msg/NavSatFix)
 MESSAGE_TYPE(sensor_msgs::msg::PointCloud2, sensor_msgs/msg/PointCloud2)
 
 MESSAGE_TYPE(trajectory_planning_msgs::msg::Trajectory, trajectory_planning_msgs/msg/Trajectory)
