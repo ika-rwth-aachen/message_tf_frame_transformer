@@ -81,12 +81,6 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 
 | ROS Message | Remarks |
 | --- | --- |
-| [`geometry_msgs/msg/Accel`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Accel.html) |  |
-| [`geometry_msgs/msg/AccelStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/AccelStamped.html) |  |
-| [`geometry_msgs/msg/AccelWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/AccelWithCovariance.html) |  |
-| [`geometry_msgs/msg/AccelWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/AccelWithCovarianceStamped.html) |  |
-| [`geometry_msgs/msg/Inertia`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Inertia.html) |  |
-| [`geometry_msgs/msg/InertiaStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/InertiaStamped.html) |  |
 | [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |  |
 | [`geometry_msgs/msg/Point32`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point32.html) |  |
 | [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |  |
@@ -100,17 +94,11 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`geometry_msgs/msg/QuaternionStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/QuaternionStamped.html) |  |
 | [`geometry_msgs/msg/Transform`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Transform.html) |  |
 | [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |  |
-| [`geometry_msgs/msg/Twist`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Twist.html) |  |
-| [`geometry_msgs/msg/TwistStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TwistStamped.html) |  |
-| [`geometry_msgs/msg/TwistWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TwistWithCovariance.html) |  |
-| [`geometry_msgs/msg/TwistWithCovarianceStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TwistWithCovarianceStamped.html) |  |
 | [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |  |
 | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
 | [`geometry_msgs/msg/VelocityStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/VelocityStamped.html) |  |
 | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
 | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
-| [`nav_msgs/msg/Odometry`](https://docs.ros2.org/foxy/api/nav_msgs/msg/Odometry.html) |  |
-| [`nav_msgs/msg/Path`](https://docs.ros2.org/foxy/api/nav_msgs/msg/Path.html) |  |
 | [`perception_msgs/msg/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/EgoData.msg) |  |
 | [`perception_msgs/msg/Object`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/Object.msg) |  |
 | [`perception_msgs/msg/ObjectList`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectList.msg) |  |
@@ -120,8 +108,6 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`route_planning_msgs/msg/RegulatoryElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RegulatoryElement.msg) |  |
 | [`route_planning_msgs/msg/Route`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/Route.msg) |  |
 | [`route_planning_msgs/msg/RouteElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RouteElement.msg) |  |
-| [`sensor_msgs/msg/Imu`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/Imu.html) |  |
-| [`sensor_msgs/msg/NavSatFix`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/NavSatFix.html) |  |
 | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) | Only the first three point cloud channels (usually `xyz`) are transformed. |
 | [`trajectory_planning_msgs/msg/Trajectory`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/trajectory_planning_msgs/msg/Trajectory.msg) |  |
 

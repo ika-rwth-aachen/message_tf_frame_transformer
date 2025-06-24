@@ -2,12 +2,6 @@
 
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-#include <geometry_msgs/msg/accel.hpp>
-#include <geometry_msgs/msg/accel_stamped.hpp>
-#include <geometry_msgs/msg/accel_with_covariance.hpp>
-#include <geometry_msgs/msg/accel_with_covariance_stamped.hpp>
-#include <geometry_msgs/msg/inertia.hpp>
-#include <geometry_msgs/msg/inertia_stamped.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/point32.hpp>
 #include <geometry_msgs/msg/point_stamped.hpp>
@@ -21,18 +15,11 @@
 #include <geometry_msgs/msg/quaternion_stamped.hpp>
 #include <geometry_msgs/msg/transform.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
-#include <geometry_msgs/msg/twist.hpp>
-#include <geometry_msgs/msg/twist_stamped.hpp>
-#include <geometry_msgs/msg/twist_with_covariance.hpp>
-#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
 #include <geometry_msgs/msg/vector3_stamped.hpp>
 #include <geometry_msgs/msg/velocity_stamped.hpp>
 #include <geometry_msgs/msg/wrench.hpp>
 #include <geometry_msgs/msg/wrench_stamped.hpp>
-
-#include <nav_msgs/msg/odometry.hpp>
-#include <nav_msgs/msg/path.hpp>
 
 #include <tf2_perception_msgs/tf2_perception_msgs.hpp>
 #include <perception_msgs/msg/ego_data.hpp>
@@ -48,8 +35,6 @@
 #include <route_planning_msgs/msg/route_element.hpp>
 
 #include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
-#include <sensor_msgs/msg/imu.hpp>
-#include <sensor_msgs/msg/nav_sat_fix.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 
 #include <tf2_trajectory_planning_msgs/tf2_trajectory_planning_msgs.hpp>
