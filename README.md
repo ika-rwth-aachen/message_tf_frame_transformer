@@ -158,3 +158,4 @@ Through application of preprocessor macros, adding support for a new ROS message
 ## Acknowledgements
 
 This research is accomplished within the project [6GEM](https://6gem.de/) (FKZ 16KISK036K). We acknowledge the financial support for the project by the Federal Ministry of Education and Research of Germany (BMBF).
+
