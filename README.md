@@ -82,7 +82,10 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | ROS Message | Remarks |
 | --- | --- |
 | [`geometry_msgs/msg/Point`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point.html) |  |
+| [`geometry_msgs/msg/Point32`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Point32.html) |  |
 | [`geometry_msgs/msg/PointStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PointStamped.html) |  |
+| [`geometry_msgs/msg/Polygon`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Polygon.html) |  |
+| [`geometry_msgs/msg/PolygonStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PolygonStamped.html) |  |
 | [`geometry_msgs/msg/Pose`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Pose.html) |  |
 | [`geometry_msgs/msg/PoseStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html) |  |
 | [`geometry_msgs/msg/PoseWithCovariance`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseWithCovariance.html) |  |
@@ -93,6 +96,7 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`geometry_msgs/msg/TransformStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html) |  |
 | [`geometry_msgs/msg/Vector3`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3.html) |  |
 | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
+| [`geometry_msgs/msg/VelocityStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/VelocityStamped.html) |  |
 | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
 | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
 | [`perception_msgs/msg/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/EgoData.msg) |  |

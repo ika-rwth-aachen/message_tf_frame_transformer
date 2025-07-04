@@ -14,7 +14,10 @@ Example:
 ============================================================================= */
 
 MESSAGE_TYPE(geometry_msgs::msg::Point, geometry_msgs/msg/Point)
+MESSAGE_TYPE(geometry_msgs::msg::Point32, geometry_msgs/msg/Point32)
 MESSAGE_TYPE(geometry_msgs::msg::PointStamped, geometry_msgs/msg/PointStamped)
+MESSAGE_TYPE(geometry_msgs::msg::Polygon, geometry_msgs/msg/Polygon)
+MESSAGE_TYPE(geometry_msgs::msg::PolygonStamped, geometry_msgs/msg/PolygonStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Pose, geometry_msgs/msg/Pose)
 MESSAGE_TYPE(geometry_msgs::msg::PoseStamped, geometry_msgs/msg/PoseStamped)
 MESSAGE_TYPE(geometry_msgs::msg::PoseWithCovariance, geometry_msgs/msg/PoseWithCovariance)
@@ -25,6 +28,7 @@ MESSAGE_TYPE(geometry_msgs::msg::Transform, geometry_msgs/msg/Transform)
 MESSAGE_TYPE(geometry_msgs::msg::TransformStamped, geometry_msgs/msg/TransformStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3, geometry_msgs/msg/Vector3)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
+MESSAGE_TYPE(geometry_msgs::msg::VelocityStamped, geometry_msgs/msg/VelocityStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Wrench, geometry_msgs/msg/Wrench)
 MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
 
