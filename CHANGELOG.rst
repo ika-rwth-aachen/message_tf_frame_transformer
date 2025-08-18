@@ -2,6 +2,16 @@
 Changelog for package message_tf_frame_transformer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.3 (2025-08-18)
+------------------
+* Merge pull request `#6 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/6>`_ from ika-rwth-aachen/codex/find-common-message-packages-on-ros-index
+  Remove perception_interfaces and planning_interfaces; add all geometry_msgs; improve CI
+* Merge pull request `#5 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/5>`_ from ika-rwth-aachen/codex/deprecate-ros-1-noetic-and-update-ros-2-support
+* Merge branch 'main' into codex/deprecate-ros-1-noetic-and-update-ros-2-support
+* Merge pull request `#4 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/4>`_ from ika-rwth-aachen/add-ika-interfaces
+  Add interfaces "perception_interfaces" and "planning_interfaces"
+* Contributors: Lennart Reiher
+
 1.1.2 (2024-06-06)
 ------------------
 
