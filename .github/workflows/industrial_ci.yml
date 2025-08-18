@@ -1,6 +1,12 @@
 name: industrial_ci
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   industrial_ci:
@@ -20,6 +26,3 @@ jobs:
       - uses: ros-industrial/industrial_ci@master
         with:
           config: ${{ toJSON(matrix) }}
-        env:
-          NOT_TEST_BUILD: true
-          UPSTREAM_WORKSPACE: ".repos -perception_interfaces/perception_msgs_rendering -perception_interfaces/perception_msgs_rviz_plugins -planning_interfaces/route_planning_msgs_rviz_plugins -planning_interfaces/trajectory_planning_msgs_rviz_plugins"
