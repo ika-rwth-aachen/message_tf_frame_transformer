@@ -98,7 +98,17 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros.org/en/ros2_packages/jazzy/api/geometry_msgs/msg/Vector3Stamped.html) |
 | [`geometry_msgs/msg/Wrench`](https://docs.ros.org/en/ros2_packages/jazzy/api/geometry_msgs/msg/Wrench.html) |
 | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros.org/en/ros2_packages/jazzy/api/geometry_msgs/msg/WrenchStamped.html) |
+| [`perception_msgs/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/EgoData.msg) |
+| [`perception_msgs/Object`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/Object.msg) |
+| [`perception_msgs/ObjectList`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectList.msg) |
+| [`perception_msgs/ObjectState`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectState.msg) |
+| [`route_planning_msgs/LaneBoundary`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/LaneBoundary.msg) |
+| [`route_planning_msgs/LaneElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/LaneElement.msg) |
+| [`route_planning_msgs/RegulatoryElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RegulatoryElement.msg) |
+| [`route_planning_msgs/Route`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/Route.msg) |
+| [`route_planning_msgs/RouteElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RouteElement.msg) |
 | [`sensor_msgs/msg/PointCloud2`](https://docs.ros.org/en/jazzy/p/sensor_msgs/msg/PointCloud2.html) |
+| [`trajectory_planning_msgs/Trajectory`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/trajectory_planning_msgs/msg/Trajectory.msg) |
 
 ### Adding Support for a New Message Type
 
