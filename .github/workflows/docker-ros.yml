@@ -1,8 +1,15 @@
 name: docker-ros
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
+
   ros2-humble:
     runs-on: ubuntu-latest
     steps:
@@ -10,10 +17,10 @@ jobs:
         with:
           platform: amd64
           target: run
+          image-tag: ros2-humble
           base-image: rwthika/ros2:humble
           command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
-          image-tag: humble
-          rmw-implementation: rmw_zenoh_cpp
+          enable-recursive-vcs-import: 'false'
 
   ros2-jazzy:
     runs-on: ubuntu-latest
@@ -22,11 +29,12 @@ jobs:
         with:
           platform: amd64
           target: run
-          base-image: rwthika/ros2:jazzy
-          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
-          image-tag: jazzy
+          image-tag: ros2-jazzy
           enable-push-as-latest: 'true'
+          base-image: rwthika/ros2:jazzy
           rmw-implementation: rmw_zenoh_cpp
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          enable-recursive-vcs-import: 'false'
 
   ros2-kilted:
     runs-on: ubuntu-latest
@@ -35,10 +43,11 @@ jobs:
         with:
           platform: amd64
           target: run
+          image-tag: ros2-kilted
           base-image: rwthika/ros2:kilted
-          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
-          image-tag: kilted
           rmw-implementation: rmw_zenoh_cpp
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          enable-recursive-vcs-import: 'false'
 
   ros2-rolling:
     runs-on: ubuntu-latest
@@ -47,7 +56,8 @@ jobs:
         with:
           platform: amd64
           target: run
+          image-tag: ros2-rolling
           base-image: rwthika/ros2:rolling
-          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
-          image-tag: rolling
           rmw-implementation: rmw_zenoh_cpp
+          command: ros2 launch message_tf_frame_transformer message_tf_frame_transformer.launch.xml
+          enable-recursive-vcs-import: 'false'

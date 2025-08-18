@@ -42,7 +42,7 @@ colcon build --packages-up-to message_tf_frame_transformer --cmake-args -DCMAKE_
 *message_tf_frame_transformer* is also available as a Docker image, containerized through [*docker-ros*](https://github.com/ika-rwth-aachen/docker-ros).
 
 ```bash
-docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:latest # or distro-specific tags, e.g., :rolling
+docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:latest # or distro-specific tags, e.g., :ros2-rolling
 ```
 
 
