@@ -28,7 +28,7 @@ MESSAGE_TYPE(geometry_msgs::msg::Transform, geometry_msgs/msg/Transform)
 MESSAGE_TYPE(geometry_msgs::msg::TransformStamped, geometry_msgs/msg/TransformStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3, geometry_msgs/msg/Vector3)
 MESSAGE_TYPE(geometry_msgs::msg::Vector3Stamped, geometry_msgs/msg/Vector3Stamped)
-MESSAGE_TYPE(geometry_msgs::msg::VelocityStamped, geometry_msgs/msg/VelocityStamped)
+// causes linker error: MESSAGE_TYPE(geometry_msgs::msg::VelocityStamped, geometry_msgs/msg/VelocityStamped)
 MESSAGE_TYPE(geometry_msgs::msg::Wrench, geometry_msgs/msg/Wrench)
 MESSAGE_TYPE(geometry_msgs::msg::WrenchStamped, geometry_msgs/msg/WrenchStamped)
 
