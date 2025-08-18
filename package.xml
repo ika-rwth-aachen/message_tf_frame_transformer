@@ -12,12 +12,21 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>geometry_msgs</depend>
+  <depend>perception_msgs</depend>
+  <depend>perception_msgs_utils</depend>
   <depend>rclcpp</depend>
+  <depend>route_planning_msgs</depend>
+  <depend>route_planning_msgs_utils</depend>
   <depend>sensor_msgs</depend>
-  <depend>tf2_geometry_msgs</depend>
-  <depend>tf2_ros</depend>
-  <depend>tf2_sensor_msgs</depend>
   <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_perception_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_route_planning_msgs</depend>
+  <depend>tf2_sensor_msgs</depend>
+  <depend>tf2_trajectory_planning_msgs</depend>
+  <depend>trajectory_planning_msgs</depend>
+  <depend>trajectory_planning_msgs_utils</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
