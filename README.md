@@ -98,17 +98,7 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 | [`geometry_msgs/msg/Vector3Stamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Vector3Stamped.html) |  |
 | [`geometry_msgs/msg/Wrench`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/Wrench.html) |  |
 | [`geometry_msgs/msg/WrenchStamped`](https://docs.ros2.org/foxy/api/geometry_msgs/msg/WrenchStamped.html) |  |
-| [`perception_msgs/msg/EgoData`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/EgoData.msg) |  |
-| [`perception_msgs/msg/Object`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/Object.msg) |  |
-| [`perception_msgs/msg/ObjectList`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectList.msg) |  |
-| [`perception_msgs/msg/ObjectState`](https://github.com/ika-rwth-aachen/perception_interfaces/blob/main/perception_msgs/msg/ObjectState.msg) |  |
-| [`route_planning_msgs/msg/LaneBoundary`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/LaneBoundary.msg) |  |
-| [`route_planning_msgs/msg/LaneElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/LaneElement.msg) |  |
-| [`route_planning_msgs/msg/RegulatoryElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RegulatoryElement.msg) |  |
-| [`route_planning_msgs/msg/Route`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/Route.msg) |  |
-| [`route_planning_msgs/msg/RouteElement`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/route_planning_msgs/msg/RouteElement.msg) |  |
 | [`sensor_msgs/msg/PointCloud2`](https://docs.ros2.org/foxy/api/sensor_msgs/msg/PointCloud.html) | Only the first three point cloud channels (usually `xyz`) are transformed. |
-| [`trajectory_planning_msgs/msg/Trajectory`](https://github.com/ika-rwth-aachen/planning_interfaces/blob/main/trajectory_planning_msgs/msg/Trajectory.msg) |  |
 
 ### Adding Support for a New Message Type
 
