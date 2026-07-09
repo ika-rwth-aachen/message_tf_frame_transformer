@@ -20,16 +20,17 @@ add_executable(${PROJECT_NAME} src/message_tf_frame_transformer.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${tf2_sensor_msgs_INCLUDE_DIRS})
 
-ament_target_dependencies(${PROJECT_NAME}
-  geometry_msgs
-  rclcpp
-  sensor_msgs
-  tf2
-  tf2_geometry_msgs
-  tf2_ros
-  tf2_sensor_msgs
+target_link_libraries(${PROJECT_NAME}
+  ${geometry_msgs_TARGETS}
+  ${rclcpp_TARGETS}
+  ${sensor_msgs_TARGETS}
+  ${tf2_TARGETS}
+  ${tf2_geometry_msgs_TARGETS}
+  ${tf2_ros_TARGETS}
+  ${tf2_sensor_msgs_TARGETS}
 )
 
 install(TARGETS
