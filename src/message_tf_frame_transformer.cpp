@@ -42,6 +42,8 @@ const std::string MessageTfFrameTransformer::kSourceFrameIdParam = "source_frame
 
 const std::string MessageTfFrameTransformer::kTargetFrameIdParam = "target_frame_id";
 
+const std::string MessageTfFrameTransformer::kTransformLookupGracePeriodParam = "transform_lookup_grace_period";
+
 
 MessageTfFrameTransformer::MessageTfFrameTransformer() : Node("message_tf_frame_transformer") {
 
@@ -69,6 +71,21 @@ void MessageTfFrameTransformer::loadParameters() {
   } catch (rclcpp::exceptions::ParameterUninitializedException&) {
     RCLCPP_FATAL(get_logger(), "Parameter '%s' is required", kTargetFrameIdParam.c_str());
     exit(EXIT_FAILURE);
+  }
+
+  rcl_interfaces::msg::ParameterDescriptor transform_loopup_grace_period_param_desc;
+  transform_loopup_grace_period_param_desc.description = "Grace period in milliseconds to wait for a frame transform to become available "
+                                                         "(optional; useful if /tf has a slight delay compared to the sensor data)";
+  this->declare_parameter(kTransformLookupGracePeriodParam, rclcpp::ParameterType::PARAMETER_INTEGER, transform_loopup_grace_period_param_desc);
+
+  try {
+    transform_lookup_grace_period_ = this->get_parameter(kTransformLookupGracePeriodParam).as_int();
+    if (transform_lookup_grace_period_ < 0) {
+      RCLCPP_FATAL(get_logger(), "Parameter '%s' must not be negative", kTransformLookupGracePeriodParam.c_str());
+      exit(EXIT_FAILURE);
+    }
+  } catch (rclcpp::exceptions::ParameterUninitializedException&) {
+    transform_lookup_grace_period_ = 0;
   }
 
   RCLCPP_INFO(

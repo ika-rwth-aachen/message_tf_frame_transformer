@@ -50,6 +50,8 @@ docker run --rm ghcr.io/ika-rwth-aachen/message_tf_frame_transformer:latest # or
 
 In order to transform messages on topic `$INPUT_TOPIC` to frame `$TARGET_FRAME_ID` and publish them to topic `$OUTPUT_TOPIC`, the *message_tf_frame_transformer* node can be started with the following topic remappings and parameter setting. Only the `target_frame_id` parameter is required. The `source_frame_id` parameter is only required for non-stamped messages without an [`std_msgs/Header`](https://docs.ros.org/en/api/std_msgs/html/msg/Header.html). The topics default to `~/input` and `~/transformed` in the node's private namespace.
 
+The optional parameter `transform_lookup_grace_period` specifies a maximum duration in milliseconds to wait for a transform to become available. If the transform is not available within this time, the message is dropped and an error message is emitted. This is useful for cases where the sensor pipeline is faster than the `/tf` pipeline. Because waiting for a transform stalls the reader, this mechanism is suitable to resolve small timing issues, not for buffering large numbers of messages. The default value is `0`. 
+
 ```bash
 ros2 run message_tf_frame_transformer message_tf_frame_transformer --ros-args \
   -r \~/input:=$INPUT_TOPIC \
@@ -146,6 +148,7 @@ Through application of preprocessor macros, adding support for a new ROS message
 | --- | --- | --- |
 | `~/target_frame_id` | `string` | target frame ID |
 | `~/source_frame_id` | `string` | source frame ID (optional; if message has no [`std_msgs/Header`](https://docs.ros.org/en/api/std_msgs/html/msg/Header.html)) |
+| `~/transform_lookup_grace_period` | `int`    | Grace period in milliseconds to wait for a frame transform to become available  (optional)                                   |
 
 
 ## Acknowledgements
