@@ -87,9 +87,13 @@ class MessageTfFrameTransformer : public rclcpp::Node {
 
   static const std::string kTargetFrameIdParam;
 
+  static const std::string kTransformLookupGracePeriodParam;
+
   std::string source_frame_id_;
 
   std::string target_frame_id_;
+
+  int transform_lookup_grace_period_ = 0;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
 
@@ -116,7 +120,7 @@ void MessageTfFrameTransformer::transform(const T& msg, const HasRosHeaderYes&) 
   // transform
   T tf_msg;
   try {
-    tf_buffer_->transform(msg, tf_msg, target_frame_id_);
+    tf_buffer_->transform(msg, tf_msg, target_frame_id_, tf2::durationFromSec(double(transform_lookup_grace_period_)/1000));
   } catch (tf2::LookupException &e) {
     RCLCPP_ERROR(
       this->get_logger(),
