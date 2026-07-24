@@ -148,6 +148,7 @@ Through application of preprocessor macros, adding support for a new ROS message
 | --- | --- | --- |
 | `~/target_frame_id` | `string` | target frame ID |
 | `~/source_frame_id` | `string` | source frame ID (optional; if message has no [`std_msgs/Header`](https://docs.ros.org/en/api/std_msgs/html/msg/Header.html)) |
+| `~/transform_lookup_grace_period` | `int`    | Grace period in milliseconds to wait for a frame transform to become available  (optional)                                   |
 
 
 ## Acknowledgements
