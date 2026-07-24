@@ -117,7 +117,7 @@ void MessageTfFrameTransformer::transform(const T& msg, const HasRosHeaderYes&) 
   T tf_msg;
   try {
     tf_buffer_->transform(msg, tf_msg, target_frame_id_);
-  } catch (tf2::LookupException &e) {
+  } catch (tf2::TransformException &e) {
     RCLCPP_ERROR(
       this->get_logger(),
       "Failed to lookup transform from '%s' to '%s': %s", msg.header.frame_id.c_str(), target_frame_id_.c_str(), e.what()
@@ -148,7 +148,7 @@ void MessageTfFrameTransformer::transform(const T& msg, const HasRosHeaderNo&) {
   geometry_msgs::msg::TransformStamped tf;
   try {
     tf = tf_buffer_->lookupTransform(target_frame_id_, source_frame_id_, tf2::TimePointZero);
-  } catch (tf2::LookupException &e) {
+  } catch (tf2::TransformException &e) {
     RCLCPP_ERROR(
       this->get_logger(),
       "Failed to lookup transform from '%s' to '%s': %s", source_frame_id_.c_str(), target_frame_id_.c_str(), e.what()
