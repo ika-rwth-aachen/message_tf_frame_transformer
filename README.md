@@ -1,3 +1,8 @@
+---
+myst:
+  heading_anchors: 3
+---
+
 # message_tf_frame_transformer
 
 <p align="center">
@@ -106,9 +111,9 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 
 Through application of preprocessor macros, adding support for a new ROS message type is as easy as adding only two lines of code. Note that the ROS message types have to integrate with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Feel free to open a pull request to add support for more message types!
 
-1. [`message_types.hpp`](./include/message_tf_frame_transformer/message_types.hpp)
+1. [`message_types.hpp`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/include/message_tf_frame_transformer/message_types.hpp)
    - include required message headers
-1. [`message_types.macro`](./include/message_tf_frame_transformer/message_types.macro)
+1. [`message_types.macro`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/include/message_tf_frame_transformer/message_types.macro)
    - define information about the new message type by calling the `MESSAGE_TYPE` macro
       - `TYPE`: ROS message type (e.g. `geometry_msgs::msg::PointStamped`)
       - `NAME`: ROS message type name (e.g. `geometry_msgs/msg/PointStamped`)

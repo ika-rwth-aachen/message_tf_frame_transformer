@@ -52,60 +52,69 @@ template <typename T>
 struct HasRosHeader<T, decltype(T::header)> : HasRosHeaderYes {};
 
 
+/// Transform supported ROS messages into a configured target frame and republish them.
 class MessageTfFrameTransformer : public rclcpp::Node {
 
  public:
 
+  /// Load parameters and start transform listening and input type discovery.
   MessageTfFrameTransformer();
 
  protected:
 
+  /// Read source/target frames and the transform lookup grace period.
   void loadParameters();
 
+  /// Create the transform buffer, listener, and input type discovery timer.
   void setup();
 
+  /// Discover the input message type and create a matching publisher and subscription.
   void detectMessageType();
 
+  /// Deserialize an input message and dispatch to its typed transform overload.
   void transformGeneric(const std::shared_ptr<const rclcpp::SerializedMessage>& serialized_msg);
 
+  /// Select a transform overload based on whether the message has a ROS header.
   template <typename T>
   void transform(const T& msg);
 
+  /// Transform and publish a message using its header frame and timestamp.
   template <typename T>
   void transform(const T& msg, const HasRosHeaderYes&);
 
+  /// Transform and publish a message using the configured source frame and latest transform.
   template <typename T>
   void transform(const T& msg, const HasRosHeaderNo&);
 
  protected:
 
-  static const std::string kInputTopic;
+  static const std::string kInputTopic;  ///< Input topic name before remapping.
 
-  static const std::string kOutputTopic;
+  static const std::string kOutputTopic;  ///< Output topic name before remapping.
 
-  static const std::string kSourceFrameIdParam;
+  static const std::string kSourceFrameIdParam;  ///< Parameter name for headerless message frames.
 
-  static const std::string kTargetFrameIdParam;
+  static const std::string kTargetFrameIdParam;  ///< Parameter name for the output frame.
 
-  static const std::string kTransformLookupGracePeriodParam;
+  static const std::string kTransformLookupGracePeriodParam;  ///< Parameter name for the lookup timeout.
 
-  std::string source_frame_id_;
+  std::string source_frame_id_;  ///< Source frame used for messages without a header.
 
-  std::string target_frame_id_;
+  std::string target_frame_id_;  ///< Frame into which messages are transformed.
 
-  int transform_lookup_grace_period_ = 0;
+  int transform_lookup_grace_period_ = 0;  ///< Maximum transform lookup wait in milliseconds.
 
-  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;  ///< Cached coordinate transforms.
 
-  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;  ///< Listener populating the transform buffer.
 
-  rclcpp::TimerBase::SharedPtr detect_message_type_timer_;
+  rclcpp::TimerBase::SharedPtr detect_message_type_timer_;  ///< Retries input type discovery.
 
-  rclcpp::GenericSubscription::SharedPtr subscriber_;
+  rclcpp::GenericSubscription::SharedPtr subscriber_;  ///< Receives serialized input messages.
 
-  rclcpp::PublisherBase::SharedPtr publisher_;
+  rclcpp::PublisherBase::SharedPtr publisher_;  ///< Publishes messages of the detected type.
 
-  std::string msg_type_;
+  std::string msg_type_;  ///< Detected input ROS message type name.
 };
 
 
