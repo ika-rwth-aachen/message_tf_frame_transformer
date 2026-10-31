@@ -1,8 +1,3 @@
----
-myst:
-  heading_anchors: 3
----
-
 # message_tf_frame_transformer
 
 <p align="center">
@@ -17,7 +12,6 @@ myst:
 The *message_tf_frame_transformer* package provides a ROS node to transform messages of arbitrary type to a different coordinate frame. This can be helpful if you cannot or do not want to modify the source code of other ROS nodes that require your data to be valid in a specific coordinate frame. Simply launch the *message_tf_frame_transformer* node and transform arbitrary messages to a target coordinate frame.
 
 - [Installation](#installation)
-  - [docker-ros](#docker-ros)
 - [Usage](#usage)
 - [Supported Message Types](#supported-message-types)
 - [Nodes](#nodes)
@@ -32,7 +26,7 @@ The *message_tf_frame_transformer* package is released as an official ROS packag
 sudo apt install ros-$ROS_DISTRO-message-tf-frame-transformer
 ```
 
-If you would like to install *message_tf_frame_transformer* from source, simply clone this repository into your ROS workspace. All dependencies that are listed in the ROS [`package.xml`](./package.xml) can be installed using [*rosdep*](http://wiki.ros.org/rosdep).
+If you would like to install *message_tf_frame_transformer* from source, simply clone this repository into your ROS workspace. All dependencies that are listed in the ROS [`package.xml`](./message_tf_frame_transformer/package.xml) can be installed using [*rosdep*](http://wiki.ros.org/rosdep).
 
 ```bash
 # message_tf_frame_transformer$
@@ -111,9 +105,9 @@ The *message_tf_frame_transformer* package is able to support any ROS message ty
 
 Through application of preprocessor macros, adding support for a new ROS message type is as easy as adding only two lines of code. Note that the ROS message types have to integrate with [`tf2::doTransform`](http://wiki.ros.org/tf2/Tutorials/Transforming%20your%20own%20datatypes). Feel free to open a pull request to add support for more message types!
 
-1. [`message_types.hpp`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/include/message_tf_frame_transformer/message_types.hpp)
+1. [`message_types.hpp`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/message_tf_frame_transformer/include/message_tf_frame_transformer/message_types.hpp)
    - include required message headers
-1. [`message_types.macro`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/include/message_tf_frame_transformer/message_types.macro)
+1. [`message_types.macro`](https://github.com/ika-rwth-aachen/message_tf_frame_transformer/blob/main/message_tf_frame_transformer/include/message_tf_frame_transformer/message_types.macro)
    - define information about the new message type by calling the `MESSAGE_TYPE` macro
       - `TYPE`: ROS message type (e.g. `geometry_msgs::msg::PointStamped`)
       - `NAME`: ROS message type name (e.g. `geometry_msgs/msg/PointStamped`)
