@@ -2,6 +2,19 @@
 Changelog for package message_tf_frame_transformer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.2.0 (2026-10-31)
+------------------
+* Merge pull request `#12 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/12>`_ from ika-rwth-aachen/pkg-subfolder
+  Move package to subfolder to avoid README inclusion
+* Merge pull request `#11 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/11>`_ from ika-rwth-aachen/fix/buildfarm-cmake-and-docs
+  Fix rosdoc2 link and API documentation warnings
+* Merge pull request `#10 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/10>`_ from kaymes/frame_lookup_grace_period
+  Add optional small grace period for lookup up frame transforms.
+* Merge pull request `#9 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/9>`_ from kaymes/transformer_exception_handling
+  Handle all TransformException without crashing.
+* Merge pull request `#8 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/8>`_ from ika-rwth-aachen/lyrical
+  Support ROS 2 Lyrical
+
 1.1.3 (2025-08-18)
 ------------------
 * Merge pull request `#6 <https://github.com/ika-rwth-aachen/message_tf_frame_transformer/issues/6>`_ from ika-rwth-aachen/codex/find-common-message-packages-on-ros-index
